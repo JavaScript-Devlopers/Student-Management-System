@@ -46,6 +46,49 @@
 
 ---
 
+## 📂 Folder Structure
+```
+school-management/
+│── backend/            # Node.js & Express backend
+│   ├── controllers/    # Business logic
+│   ├── models/         # MongoDB models
+│   ├── routes/         # API routes
+│   ├── middleware/     # Authentication & security
+│   ├── config/         # Configuration files
+│   ├── utils/          # Helper functions
+│   ├── .env            # Environment variables
+│   ├── server.js       # Entry point
+│
+│── frontend/           # React.js frontend
+│   ├── src/
+│   │   ├── components/ # UI Components
+│   │   ├── pages/      # Page Components
+│   │   ├── redux/      # Redux store & slices
+│   │   ├── utils/      # Helper functions
+│   │   ├── App.js      # Main App component
+│   │   ├── index.js    # Entry point
+│   ├── public/         # Static assets
+│   ├── .env            # Environment variables
+│
+│── mobile-app/         # React Native mobile app
+│   ├── src/
+│   │   ├── components/ # UI Components
+│   │   ├── screens/    # Screens
+│   │   ├── redux/      # Redux store & slices
+│   │   ├── utils/      # Helper functions
+│   │   ├── App.js      # Main App component
+│   │   ├── index.js    # Entry point
+│   ├── android/        # Android specific files
+│   ├── ios/            # iOS specific files
+│   ├── .env            # Environment variables
+│
+│── README.md           # Documentation
+│── package.json        # Dependencies
+│── .gitignore          # Git ignore file
+```
+
+---
+
 ## 🔧 Installation Guide
 ### 1️⃣ **Clone Repository**
 ```bash
