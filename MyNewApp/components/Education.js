@@ -24,7 +24,7 @@ const Education = React.memo(({ isEnabled, cardStyle }) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: isEnabled ? "black" : "white", paddingHorizontal: 10 }}>
+    <View style={{ flex: 1, backgroundColor: isEnabled ? "black" : "white" }}>
       <ThemedView style={cardStyle}>
         <ThemedText style={textStyle} type="subtitle">
           🎓 Education
@@ -38,10 +38,6 @@ const Education = React.memo(({ isEnabled, cardStyle }) => {
           <ThemedText style={textStyle}>
             Vikram University, Ujjain | 2020 – 2023
           </ThemedText>
-          {/* <ThemedText style={textStyle}>
-            - Specialized in Information Technology alongside the core BCA curriculum.
-            {"\n"}- Focused on software development, database management, and algorithmic problem-solving.
-          </ThemedText> */}
         </View>
 
         {/* Higher Secondary Certificate (12th Grade) */}
