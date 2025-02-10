@@ -7,6 +7,9 @@ import { ThemedView } from "@/components/ThemedView";
 import Projects from "@/components/Projects";
 import Education from "@/components/Education";
 import Skills from "@/components/Skills";
+import Contact from "@/components/Contact";
+// import Tictoe from "@/components/Tictoe";
+import Games from "@/components/Games";
 
 const App = () => {
   const [isEnabled, setIsEnabled] = useState(true);
@@ -58,7 +61,7 @@ const App = () => {
         }}
         headerImage={
           <Image
-            source={require("@/assets/images/bg.png")}
+            source={require("@/assets/images/bg.jpg")}
             style={{ width: "100%", height: 200, borderRadius: 10 }}
           />
         }
@@ -105,7 +108,7 @@ const App = () => {
                 🌐 GitHub
               </Text>
             </TouchableOpacity>
-            {" | "}
+            {"   "}
             <TouchableOpacity
               onPress={() =>
                 handleLinkPress(
@@ -123,9 +126,7 @@ const App = () => {
         </ThemedView>
 
         {/* About Me Section */}
-        <ThemedView
-          style={cardStyle}
-        >
+        <ThemedView style={cardStyle}>
           <ThemedText style={textStyle} type="subtitle">
             📖 About Me
           </ThemedText>
@@ -137,14 +138,17 @@ const App = () => {
         </ThemedView>
 
         {/* Experience Section */}
-        <ThemedView
-          style={cardStyle}
-        >
+        <ThemedView style={cardStyle}>
           <ThemedText style={textStyle} type="subtitle">
             💼 Experience
           </ThemedText>
-      
-          <ThemedText style={[textStyle, { textAlign: "center",fontFamily: "Roboto-Bold",fontSize: 20 }]}>
+
+          <ThemedText
+            style={[
+              textStyle,
+              { textAlign: "center", fontFamily: "Roboto-Bold", fontSize: 20 },
+            ]}
+          >
             PNP Infotech, Indore | September 2022 - Present
           </ThemedText>
           <ThemedText style={textStyle}>
@@ -161,15 +165,18 @@ const App = () => {
         </ThemedView>
 
         {/* Featured Projects Section */}
-        <Projects isEnabled={isEnabled} cardStyle={cardStyle}/>
+        <Projects isEnabled={isEnabled} cardStyle={cardStyle} />
 
         {/* Education Section */}
-        <Education isEnabled={isEnabled} cardStyle={cardStyle}/>
+        <Education isEnabled={isEnabled} cardStyle={cardStyle} />
 
         {/* Skills Section */}
-     <Skills isEnabled={isEnabled} cardStyle={cardStyle}/>
+        <Skills isEnabled={isEnabled} cardStyle={cardStyle} />
 
+        <Contact isEnabled={isEnabled} cardStyle={cardStyle} />
 
+        {/* <Tictoe isEnabled={isEnabled} cardStyle={cardStyle} /> */}
+<Games isEnabled={isEnabled} cardStyle={cardStyle} />
 
         {/* Footer Section */}
         <ThemedView style={cardStyle}>

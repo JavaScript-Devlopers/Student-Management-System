@@ -5,11 +5,8 @@ import { ThemedView } from "@/components/ThemedView";
 
 const { width } = Dimensions.get("window");
 
-const Education = React.memo(({ isEnabled, cardStyle }) => {
-  const containerStyle = {
-    flex: 1,
-    backgroundColor: isEnabled ? "black" : "white",
-  };
+const Education = ({ isEnabled, cardStyle }) => {
+
   const textStyle = {
     color: isEnabled ? "white" : "black",
   };
@@ -62,6 +59,6 @@ const Education = React.memo(({ isEnabled, cardStyle }) => {
       </ThemedView>
     </View>
   );
-});
+}
 
 export default Education;
