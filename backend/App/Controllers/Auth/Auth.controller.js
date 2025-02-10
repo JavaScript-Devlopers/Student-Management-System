@@ -20,11 +20,9 @@ class Auth {
 
             // Password Check
             const validPassword = await bcrypt.compare(Password, EmailCheck.Password);
-
             if (validPassword == false) {
                 return res.send({ status: false, msg: 'Password Not Match', data: [] });
             }
-
 
             // JWT TOKEN CREATE
             var token = jwt.sign({ id: EmailCheck._id }, process.env.SECRET, {
@@ -57,6 +55,8 @@ class Auth {
         }
 
     }
+
+    
 
 
 }
