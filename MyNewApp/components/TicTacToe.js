@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import { ThemedView } from "@/components/ThemedView";
 
 const TicTacToe = ({ isEnabled, cardStyle }) => {
+
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isXTurn, setIsXTurn] = useState(true);
 
@@ -57,68 +58,69 @@ const TicTacToe = ({ isEnabled, cardStyle }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: isEnabled ? "black" : "white" }}>
-      <Text
-        style={{
-          fontSize: 24,
-          fontWeight: "bold",
-          marginBottom: 20,
-          color: isEnabled ? "white" : "black",
-        }}
-      >
-        Tic-Tac-Toe
-      </Text>
-      <View
-        style={{
-          width: 300,
-          height: 300,
-          flexDirection: "row",
-          flexWrap: "wrap",
-        }}
-      >
-        {board.map((cell, index) => (
-          <TouchableOpacity
-            key={index}
-            style={{
-              width: 100,
-              height: 100,
-              justifyContent: "center",
-              alignItems: "center",
-              borderWidth: 2,
-              color: isEnabled ? "white" : "black",
-              borderColor: isEnabled ? "white" : "black",
-            }}
-            onPress={() => handlePress(index)}
-          >
-            <Text
-              style={{
-                fontSize: 32,
-                fontWeight: "bold",
-              }}
-            >
-              {cell}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      <TouchableOpacity
-        style={{
-          marginTop: 20,
-          padding: 10,
-          backgroundColor: isEnabled ? "#333" : "#f0f0f0",
-          borderRadius: 5,
-        }}
-        onPress={resetGame}
-      >
+    
         <Text
           style={{
-            color: isEnabled ? "white" : "black",
-            fontSize: 18,
+            fontSize: 24,
             fontWeight: "bold",
+            marginBottom: 20,
+            color: isEnabled ? "white" : "black",
           }}
         >
-          Restart Game
+          Tic-Tac-Toe
         </Text>
-      </TouchableOpacity>
+        <View
+          style={{
+            width: 300,
+            height: 300,
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+        >
+          {board.map((cell, index) => (
+            <TouchableOpacity
+              key={index}
+              style={{
+                width: 100,
+                height: 100,
+                justifyContent: "center",
+                alignItems: "center",
+                borderWidth: 2,
+                color: isEnabled ? "white" : "black",
+                borderColor: isEnabled ? "white" : "black",
+              }}
+              onPress={() => handlePress(index)}
+            >
+              <Text
+                style={{
+                  fontSize: 32,
+                  fontWeight: "bold",
+                }}
+              >
+                {cell}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <TouchableOpacity
+          style={{
+            marginTop: 20,
+            padding: 10,
+            backgroundColor: isEnabled ? "#333" : "#f0f0f0",
+            borderRadius: 5,
+          }}
+          onPress={resetGame}
+        >
+          <Text
+            style={{
+              color: isEnabled ? "white" : "black",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            Restart Game
+          </Text>
+        </TouchableOpacity>
     </View>
   );
 };

@@ -7,6 +7,7 @@ const { width } = Dimensions.get("window");
 
 const Education = ({ isEnabled, cardStyle }) => {
 
+
   const textStyle = {
     color: isEnabled ? "white" : "black",
   };

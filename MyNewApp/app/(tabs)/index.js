@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Image, Linking } from "react-native";
+import React, { useState } from "react";
+import { View, Image, TouchableOpacity, Text } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -8,50 +10,25 @@ import Projects from "@/components/Projects";
 import Education from "@/components/Education";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
-// import Tictoe from "@/components/Tictoe";
 import Games from "@/components/Games";
 
-const App = () => {
+const Stack = createStackNavigator();
+
+const HomeScreen = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(true);
-  const [cardStyle, setCardStyle] = useState({
+
+  const cardStyle = {
     alignItems: "center",
     padding: 20,
     backgroundColor: isEnabled ? "black" : "#fff",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-  });
-
-  useEffect(() => {
-    setCardStyle({
-      alignItems: "center",
-      padding: 20,
-      backgroundColor: isEnabled ? "black" : "#fff",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      elevation: 5,
-    });
-  }, [isEnabled]);
-
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
-  const textStyle = isEnabled ? { color: "white" } : { color: "black" };
-
-  const handleLinkPress = (url) => {
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL", err)
-    );
   };
+
+  const textStyle = { color: isEnabled ? "white" : "black" };
 
   return (
     <View style={{ backgroundColor: isEnabled ? "black" : "white", flex: 1 }}>
@@ -68,19 +45,15 @@ const App = () => {
         style={{ backgroundColor: isEnabled ? "black" : "white" }}
       >
         <Text
-          onPress={toggleSwitch}
+          onPress={() => setIsEnabled(!isEnabled)}
           style={{
-            alignItems: "end",
-            color: isEnabled ? "white" : "black",
-            justifyContent: "flex-end",
+            textAlign: "right",
             fontSize: 16,
             marginBottom: 10,
-            textAlign: "right",
+            color: isEnabled ? "white" : "black",
           }}
         >
-          <Text style={{ color: isEnabled ? "White" : "black" }}>
-            {isEnabled ? "🌙 DARK" : "💡 LIGHT"}
-          </Text>
+          {isEnabled ? "🌙 DARK" : "💡 LIGHT"}
         </Text>
 
         <ThemedView style={cardStyle}>
@@ -176,7 +149,7 @@ const App = () => {
         <Contact isEnabled={isEnabled} cardStyle={cardStyle} />
 
         {/* <Tictoe isEnabled={isEnabled} cardStyle={cardStyle} /> */}
-<Games isEnabled={isEnabled} cardStyle={cardStyle} />
+        <Games isEnabled={isEnabled} cardStyle={cardStyle} />
 
         {/* Footer Section */}
         <ThemedView style={cardStyle}>
@@ -184,9 +157,53 @@ const App = () => {
             © 2025 Sneh Jaiswal. All Rights Reserved.
           </Text>
         </ThemedView>
+
+        {/* Profile Section */}
+        <ThemedView style={cardStyle}>
+          {/* Navigation Buttons */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Projects")}
+            style={{
+              padding: 10,
+              backgroundColor: "#007BFF",
+              borderRadius: 5,
+              marginTop: 10,
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 18 }}>
+              📁 View Projects
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Games")}
+            style={{
+              padding: 10,
+              backgroundColor: "green",
+              borderRadius: 5,
+              marginTop: 10,
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 18 }}>🎮 Play Games</Text>
+          </TouchableOpacity>
+        </ThemedView>
       </ParallaxScrollView>
     </View>
   );
 };
 
-export default App;
+// ❌ Remove NavigationContainer from here
+const StackNavigator = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Projects" component={Projects} />
+      <Stack.Screen name="Education" component={Education} />
+      <Stack.Screen name="Skills" component={Skills} />
+      <Stack.Screen name="Contact" component={Contact} />
+      <Stack.Screen name="Games" component={Games} />
+    </Stack.Navigator>
+  );
+};
+
+export default StackNavigator;

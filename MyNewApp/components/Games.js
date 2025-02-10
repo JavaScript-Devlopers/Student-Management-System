@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import Tictoe from "@/components/Tictoe";
+import TicTacToe from "@/components/TicTacToe";
 import RockPaperScissors from "@/components/RockPaperScissors";
+import MemoryGame from "@/components/MemoryGame";
+import SnakeGame from "@/components/SnakeGame";
 
 const projects = [
-  { title: "Tic Tac Toe", component: Tictoe },
+  { title: "Tic Tac Toe", component: TicTacToe },
   { title: "Rock Paper Scissors", component: RockPaperScissors },
+  { title: "Memory Game", component: MemoryGame },
+  { title: "Snake Game", component: SnakeGame },
 ];
 
-const App = ({ isEnabled, cardStyle }) => {
+const Games = ({ isEnabled, cardStyle }) => {
+
   return (
     <View style={{ flex: 1, backgroundColor: isEnabled ? "black" : "white" }}>
       <ThemedView style={cardStyle}>
@@ -24,7 +29,7 @@ const App = ({ isEnabled, cardStyle }) => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {projects.map((game, index) => (
             <>
-              <game.component key={index} isEnabled={isEnabled} cardStyle={cardStyle} />
+              <game.component key={index} isEnabled={{isEnabled:isEnabled}} cardStyle={cardStyle} />
             </>
           ))}
         </ScrollView>
@@ -33,4 +38,4 @@ const App = ({ isEnabled, cardStyle }) => {
   );
 };
 
-export default App;
+export default Games;

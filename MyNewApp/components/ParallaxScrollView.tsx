@@ -28,7 +28,7 @@ export default function ParallaxScrollView({
   const bottom = useBottomTabOverflow();
   const headerAnimatedStyle = useAnimatedStyle(() => {
   
-
+console.log("headerBackgroundColor",headerBackgroundColor)
     return {
       transform: [
         {
