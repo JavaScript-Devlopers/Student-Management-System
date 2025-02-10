@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require('../../Models');
-const User = db.User;
+const User_models = db.User;
 
 
 class Auth {
@@ -12,7 +12,7 @@ class Auth {
 
     async RegisterUser(req, res) {
         try {
-            const { FullName, UserName, Email, PhoneNo, password } = req.body;
+            const { FullName, UserName, Email, PhoneNo, password, Role } = req.body;
 
             if (!FullName) {
                 return res.json({ status: false, msg: "Full Name is required!", data: [] });
@@ -31,7 +31,7 @@ class Auth {
             }
 
             // Check if user already exists
-            const existingUser = await User.findOne({
+            const existingUser = await User_models.findOne({
                 $or: [{ UserName }, { Email }, { PhoneNo }],
             });
 
@@ -52,11 +52,12 @@ class Auth {
             const hashedPassword = await bcrypt.hash(password, salt);
 
             // Create new user
-            const newUser = await User.create({
+            const newUser = await User_models.create({
                 FullName,
                 UserName,
                 Email,
                 PhoneNo,
+                Role,
                 Password: hashedPassword,
             });
 
@@ -73,7 +74,7 @@ class Auth {
         try {
             const { Email, Password } = req.body;
 
-            const EmailCheck = await User.findOne({ Email: Email });
+            const EmailCheck = await User_models.findOne({ Email: Email });
             if (!EmailCheck) {
                 return res.send({ status: false, msg: 'User Not exists', data: [] });
             }
@@ -90,19 +91,6 @@ class Auth {
             var token = jwt.sign({ id: EmailCheck._id }, process.env.SECRET, {
                 expiresIn: 36000 // 10 hours
             });
-
-
-            const user_login = new user_logs({
-                user_Id: EmailCheck._id,
-                admin_Id: EmailCheck.parent_id,
-                login_status: "Panel On",
-                role: EmailCheck.Role,
-                device: "WEB",
-                system_ip: ip
-
-            })
-            await user_login.save();
-
 
 
             try {
