@@ -3,19 +3,15 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require('../../Models');
-const SignUpUser = db.SignUpUser;
-const User = db.user;
-const company_information = db.company_information;
-const user_logs = db.user_activity_logs;
+const User = db.User;
 
 
-// Login CLASS
 class Auth {
 
-    // Login User
+
     async login(req, res) {
         try {
-            const { Email, Password, device, ip } = req.body;
+            const { Email, Password } = req.body;
 
             const EmailCheck = await User.findOne({ Email: Email });
             if (!EmailCheck) {
