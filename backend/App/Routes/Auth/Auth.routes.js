@@ -3,11 +3,11 @@
 const router = require("express").Router()
 
 
-const { login } = require('../../Controllers/Auth/Auth.controller')
+const { RegisterUser } = require('../../Controllers/Auth/Auth.controller')
 
 
 
-// router.post('/login', login)
+router.post('/registerUser', RegisterUser)
 
 
 

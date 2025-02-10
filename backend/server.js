@@ -1,35 +1,33 @@
-
 "use strict";
 
-require('dotenv').config();
-const mongoConnection = require('./App/Connections/mongo_connection');
+require("dotenv").config();
 const express = require("express");
+const mongoConnection = require("./App/Connections/mongo_connection");
+const cors = require("cors");
+
 const app = express();
-const http = require('http');
-const https = require('https');
-const fs = require('fs');
-const cors = require('cors');
-const bodyparser = require('body-parser');
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 
-// Setting up CORS options
+
 const corsOpts = {
-    origin: '*',
-    methods: ['GET', 'POST'],
-    allowedHeaders: [
-        "Access-Control-Allow-Headers",
-        "x-access-token, Origin, Content-Type, Accept", "authorization",
-    ],
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["x-access-token", "Origin", "Content-Type", "Accept", "Authorization"],
 };
 app.use(cors(corsOpts));
 
 
 
-// // Importing routes
+
 require("./App/Routes")(app);
 
-
-app.listen(process.env.PORT, () => {
-    console.log(`Server is running on http://0.0.0.0:${process.env.PORT}`);
+// Start the server
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+    console.log(`🚀 Server is running on http://0.0.0.0:${PORT}`);
 });
