@@ -27,7 +27,7 @@ app.use(cors(corsOpts));
 
 
 // // Importing routes
-// require("./App/Routes")(app);
+require("./App/Routes")(app);
 
 
 app.listen(process.env.PORT, () => {
