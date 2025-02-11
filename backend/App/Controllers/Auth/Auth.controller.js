@@ -8,12 +8,9 @@ const User_models = db.User;
 
 class Auth {
 
-
-
     async RegisterUser(req, res) {
         try {
             const { FullName, UserName, Email, PhoneNo, password, Role } = req.body;
-            console.log("SSS")
 
             if (!FullName) {
                 return res.json({ status: false, msg: "Full Name is required!", data: [] });
@@ -69,8 +66,7 @@ class Auth {
             return res.json({ status: false, msg: "Internal Server Error", data: [] });
         }
     }
-
-
+    
     async login(req, res) {
         try {
             const { Email, Password } = req.body;
@@ -105,9 +101,6 @@ class Auth {
         }
 
     }
-
-
-
 
 }
 
