@@ -4,7 +4,9 @@ const { Schema, model } = require('mongoose');
 const mongoose = require('mongoose')
 const Role = require('./role.model')
 
-// Employee Financial Information Collection
+
+
+
 const userModel = Schema({
     FullName: {
         type: String,
@@ -51,8 +53,6 @@ const userModel = Schema({
         type: String,
         required: true
     },
-
-
 },
     {
         timestamps: true
