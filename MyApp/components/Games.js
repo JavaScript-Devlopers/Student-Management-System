@@ -27,8 +27,9 @@ const Games = ({ isEnabled, cardStyle }) => {
 
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {projects.map((game, index) => (
-          <>
+          
             <View
+            key={index}
               style={{
                 flex: 1,
                 backgroundColor: isEnabled ? "black" : "white",
@@ -42,7 +43,7 @@ const Games = ({ isEnabled, cardStyle }) => {
                 cardStyle={cardStyle}
               />
             </View>
-          </>
+          
         ))}
       </ScrollView>
       {/* </ThemedView> */}
