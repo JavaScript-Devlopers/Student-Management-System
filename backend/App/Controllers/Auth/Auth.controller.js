@@ -13,6 +13,7 @@ class Auth {
     async RegisterUser(req, res) {
         try {
             const { FullName, UserName, Email, PhoneNo, password, Role } = req.body;
+            console.log("SSS")
 
             if (!FullName) {
                 return res.json({ status: false, msg: "Full Name is required!", data: [] });
