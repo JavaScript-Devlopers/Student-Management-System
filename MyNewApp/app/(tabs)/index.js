@@ -11,6 +11,10 @@ import Education from "@/components/Education";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Games from "@/components/Games";
+import TicTacToe from "@/components/TicTacToe";
+import RockPaperScissors from "@/components/RockPaperScissors";
+import MemoryGame from "@/components/MemoryGame";
+import SnakeGame from "@/components/SnakeGame";
 
 const Stack = createStackNavigator();
 
@@ -202,6 +206,8 @@ const StackNavigator = () => {
       <Stack.Screen name="Skills" component={Skills} />
       <Stack.Screen name="Contact" component={Contact} />
       <Stack.Screen name="Games" component={Games} />
+      {/* <Stack.Screen name="TicTacToe" component={} */}
+
     </Stack.Navigator>
   );
 };

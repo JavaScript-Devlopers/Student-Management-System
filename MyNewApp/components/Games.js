@@ -15,25 +15,37 @@ const projects = [
 ];
 
 const Games = ({ isEnabled, cardStyle }) => {
-
   return (
     <View style={{ flex: 1, backgroundColor: isEnabled ? "black" : "white" }}>
-      <ThemedView style={cardStyle}>
-        <ThemedText
-          style={{ color: isEnabled ? "white" : "black" }}
-          type="subtitle"
-        >
-          📂 Games
-        </ThemedText>
+      {/* <ThemedView style={cardStyle}> */}
+      <ThemedText
+        style={{ color: isEnabled ? "white" : "black" }}
+        type="subtitle"
+      >
+        📂 Games
+      </ThemedText>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {projects.map((game, index) => (
-            <>
-              <game.component key={index} isEnabled={{isEnabled:isEnabled}} cardStyle={cardStyle} />
-            </>
-          ))}
-        </ScrollView>
-      </ThemedView>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {projects.map((game, index) => (
+          <>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: isEnabled ? "black" : "white",
+                justifyContent: "center",
+                width: 400,
+              }}
+            >
+              <game.component
+                key={index}
+                isEnabled={{ isEnabled: isEnabled }}
+                cardStyle={cardStyle}
+              />
+            </View>
+          </>
+        ))}
+      </ScrollView>
+      {/* </ThemedView> */}
     </View>
   );
 };
