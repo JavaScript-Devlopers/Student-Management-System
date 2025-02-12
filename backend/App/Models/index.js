@@ -1,8 +1,9 @@
 
 module.exports = {
     Role: require("./role.model"),
-    User: require("./User.model")
-
+    User: require("./User.model"),
+    Teacher_model: require("./Teachers.model"),
+    Subject_model: require("./Subject.models")
 
 
 
