@@ -69,10 +69,12 @@ const TicTacToe = ({ isEnabled }) => {
               alignItems: "center",
               borderWidth: 2,
               borderColor: isEnabled ? "white" : "black",
+              color: isEnabled ? "white" : "black",
+
             }}
             onPress={() => handlePress(index)}
           >
-            <Text style={{ fontSize: 32, fontWeight: "bold" }}>{cell}</Text>
+            <Text style={{ fontSize: 32, fontWeight: "bold",color:isEnabled?"white":"black" }}>{cell}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -97,6 +99,7 @@ const TicTacToe = ({ isEnabled }) => {
           padding: 10,
           backgroundColor: isFullScreen ? "red" : "green",
           borderRadius: 5,
+          color:isEnabled ? "white" : "black"
         }}
         onPress={() => setIsFullScreen(!isFullScreen)}
       >

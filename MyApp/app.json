@@ -4,7 +4,7 @@
     "slug": "MyApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/bg.jpg",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/bg.jpg",
         "backgroundColor": "#ffffff"
       },
       "package": "com.sneh2002.MyApp"
@@ -21,14 +21,14 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/bg.jpg"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/bg.jpg",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
@@ -43,8 +43,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "5c0d8699-e65d-43b6-af33-d91066ae3bdd"
+        "projectId": "2b97baef-8067-47b5-b947-7c9d01402e52"
       }
-    }
+    },
+    "owner": "sneh2002"
   }
 }
