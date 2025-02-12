@@ -57,9 +57,8 @@ class Teachers {
 
             await newTeacher.save();
 
-            console.log("cccccccc")
 
-            return res.json({ status: true, msg: "Added Successfully", data: teachersdata })
+            return res.json({ status: true, msg: "Added Successfully", data: newTeacher })
 
         } catch (error) {
             return res.json({ status: false, msg: "Server Error ", data: [] })
