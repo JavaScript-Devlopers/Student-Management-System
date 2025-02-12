@@ -89,8 +89,7 @@ class Auth {
             var token = jwt.sign({ id: EmailCheck._id }, process.env.SECRET, {
                 expiresIn: 36000 // 10 hours
             });
-
-            console.log("token", token)
+ 
 
             try {
                 return res.send({ status: true, msg: "Login Succesfully", data: EmailCheck })

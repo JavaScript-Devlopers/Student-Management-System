@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import swal from 'sweetalert2'
 import { login } from '../../Services/auth/Auth'
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+    const navigate = useNavigate()
     const [loginDetails, setLoginDetails] = useState({ email: "", password: "" })
 
     const handleLogin = async () => {
@@ -10,6 +12,7 @@ const Login = () => {
         await login(req)
             .then((res) => {
                 if (res.status) {
+                    console.log("SS", res?.data?.Role)
                     localStorage.setItem('userDetails', JSON.stringify(res.data))
                     swal.fire({
                         icon: 'success',
@@ -17,17 +20,24 @@ const Login = () => {
                         title: res.msg,
                         timerProgressBar: true
                     }).then(()=>{
-                        if(res.data.Role==0){
-                            navigate('superadmin/dashboard')
+                        if(res?.data?.Role==0){
+                            localStorage.setItem("role", "SUPERADMIN")
+                            navigate('/superadmin/dashboard')
                         }
                         else if(res?.data?.Role==1){
-                            navigate('admin/bashboard')
+                            localStorage.setItem("role", "ADMIN")
+
+                            navigate('/admin/dashboard')
                         }
                         else if(res?.data?.Role==2){
-                            navigate('student/bashboard')
+                            localStorage.setItem("role", "STUDENT")
+
+                            navigate('/student/bashboard')
                         }
                         else if(res?.data?.Role==3){
-                            navigate('teacher/bashboard')
+                            localStorage.setItem("role", "TEACHER")
+
+                            navigate('/teacher/bashboard')
                         }
                        
                     })

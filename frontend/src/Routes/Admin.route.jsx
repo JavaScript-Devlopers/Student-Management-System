@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
-import Header from '../Components/Header';
-import SideBar from '../Components/SideBar';
-import AdminDashboard from '../Layouts/Admin/Dashboard/Dashboard';
-import AllQuize from '../Layouts/Admin/Quizes/AllQuize';
+import Header from '../ExtraComponent/Header';
+import SideBar from '../ExtraComponent/SideBar';
+import AdminDashboard from '../Layouts/Admin/Dashboard/Dasboard';
 
 
 
@@ -18,7 +17,6 @@ const UserRoutes = () => {
                     <div className="admin-main">
                         <Routes>
                             <Route path="/dashboard" element={<AdminDashboard />} />
-                            <Route path="/all-quizes" element={<AllQuize />} />
                         </Routes>
                     </div>
                 </main>
