@@ -58,6 +58,8 @@ class Auth {
                 Role,
                 Password: hashedPassword,
             });
+         
+           
 
             return res.json({ status: true, msg: "User registered successfully!", data: newUser });
 
