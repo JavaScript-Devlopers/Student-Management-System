@@ -70,7 +70,6 @@ class Auth {
     async login(req, res) {
         try {
             const { Email, Password } = req.body;
-            console.log("email", Email, Password)
             return
             const EmailCheck = await User_models.findOne({ Email: Email });
             if (!EmailCheck) {
