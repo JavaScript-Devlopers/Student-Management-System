@@ -141,9 +141,7 @@ const HomeScreen = ({ navigation }) => {
           </ThemedText>
         </ThemedView>
 
-        {/* Featured Projects Section */}
         <Projects isEnabled={isEnabled} cardStyle={cardStyle} />
-
         {/* Education Section */}
         <Education isEnabled={isEnabled} cardStyle={cardStyle} />
 
@@ -152,45 +150,32 @@ const HomeScreen = ({ navigation }) => {
 
         <Contact isEnabled={isEnabled} cardStyle={cardStyle} />
 
-        {/* <Tictoe isEnabled={isEnabled} cardStyle={cardStyle} /> */}
-        <Games isEnabled={isEnabled} cardStyle={cardStyle} />
+        <ThemedView style={cardStyle}>
+          <ThemedText
+            style={{
+              color: isEnabled ? "white" : "black",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            type="subtitle"
+            onPress={() => navigation.navigate("Games")}
+          >
+            📂 Games
+          </ThemedText>
 
+          <Games
+            isEnabled={isEnabled}
+            cardStyle={cardStyle}
+            onPress={() => navigation.navigate("Games")}
+          />
+        </ThemedView>
         {/* Footer Section */}
         <ThemedView style={cardStyle}>
           <Text style={[textStyle, { textAlign: "center", margin: 20 }]}>
             © 2025 Sneh Jaiswal. All Rights Reserved.
           </Text>
         </ThemedView>
-
-        {/* Profile Section */}
-        <ThemedView style={cardStyle}>
-          {/* Navigation Buttons */}
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Projects")}
-            style={{
-              padding: 10,
-              backgroundColor: "#007BFF",
-              borderRadius: 5,
-              marginTop: 10,
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 18 }}>
-              📁 View Projects
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Games")}
-            style={{
-              padding: 10,
-              backgroundColor: "green",
-              borderRadius: 5,
-              marginTop: 10,
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 18 }}>🎮 Play Games</Text>
-          </TouchableOpacity>
-        </ThemedView>
+        
       </ParallaxScrollView>
     </View>
   );
@@ -210,7 +195,6 @@ const StackNavigator = () => {
       <Stack.Screen name="RockPaperScissors" component={RockPaperScissors} />
       <Stack.Screen name="MemoryGame" component={MemoryGame} />
       <Stack.Screen name="SnakeGame" component={SnakeGame} />
-
     </Stack.Navigator>
   );
 };

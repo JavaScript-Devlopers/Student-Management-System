@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "MyApp",
-    "slug": "MyApp",
+    "name": "Portfoliyo",
+    "slug": "Portfoliyo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/bg.jpg",
-    "scheme": "myapp",
+    "scheme": "Portfoliyo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -16,7 +16,7 @@
         "foregroundImage": "./assets/images/bg.jpg",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.sneh2002.MyApp"
+      "package": "com.sneh2002.Portfoliyo"
     },
     "web": {
       "bundler": "metro",
@@ -46,6 +46,12 @@
         "projectId": "2b97baef-8067-47b5-b947-7c9d01402e52"
       }
     },
-    "owner": "sneh2002"
+    "owner": "sneh2002",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/2b97baef-8067-47b5-b947-7c9d01402e52"
+    }
   }
 }

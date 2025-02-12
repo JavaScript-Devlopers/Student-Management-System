@@ -33,8 +33,8 @@ const RockPaperScissors = ({ isEnabled, cardStyle }) => {
     <View
       style={{
         flex: 1,
-        justifyContent: "start",
-        alignItems: "start",
+        alignItems: "center",
+        justifyContent: "center",
         backgroundColor: isEnabled ? "black" : "white",
       }}
     >
@@ -56,7 +56,7 @@ const RockPaperScissors = ({ isEnabled, cardStyle }) => {
           marginBottom: 30,
         }}
       >
-        {choices.map((choice,index) => (
+        {choices.map((choice, index) => (
           <TouchableOpacity
             key={index}
             style={{

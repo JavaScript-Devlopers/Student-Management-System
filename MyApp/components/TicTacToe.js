@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Alert, StatusBar } from "react-native";
 
 const TicTacToe = ({ isEnabled }) => {
+  console.log("isEnabled=>", isEnabled);
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isXTurn, setIsXTurn] = useState(true);
   const [isFullScreen, setIsFullScreen] = useState(false); // Fullscreen toggle state
@@ -16,9 +17,13 @@ const TicTacToe = ({ isEnabled }) => {
 
     const winner = checkWinner(newBoard);
     if (winner) {
-      Alert.alert("Game Over", `${winner} wins!`, [{ text: "Restart", onPress: resetGame }]);
+      Alert.alert("Game Over", `${winner} wins!`, [
+        { text: "Restart", onPress: resetGame },
+      ]);
     } else if (!newBoard.includes(null)) {
-      Alert.alert("Game Over", "It's a Draw!", [{ text: "Restart", onPress: resetGame }]);
+      Alert.alert("Game Over", "It's a Draw!", [
+        { text: "Restart", onPress: resetGame },
+      ]);
     }
   };
 
@@ -35,7 +40,11 @@ const TicTacToe = ({ isEnabled }) => {
     ];
 
     for (let [a, b, c] of winningCombinations) {
-      if (boardToCheck[a] && boardToCheck[a] === boardToCheck[b] && boardToCheck[a] === boardToCheck[c]) {
+      if (
+        boardToCheck[a] &&
+        boardToCheck[a] === boardToCheck[b] &&
+        boardToCheck[a] === boardToCheck[c]
+      ) {
         return boardToCheck[a];
       }
     }
@@ -48,17 +57,38 @@ const TicTacToe = ({ isEnabled }) => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: isEnabled ? "black" : "white" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: isEnabled ? "black" : "white",
+      }}
+    >
       {/* StatusBar hide/show based on full screen mode */}
       <StatusBar hidden={isFullScreen} />
 
       {!isFullScreen && (
-        <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 20, color: isEnabled ? "white" : "black" }}>
+        <Text
+          style={{
+            fontSize: 24,
+            fontWeight: "bold",
+            marginBottom: 20,
+            color: isEnabled ? "white" : "black",
+          }}
+        >
           Tic-Tac-Toe
         </Text>
       )}
 
-      <View style={{ width: 300, height: 300, flexDirection: "row", flexWrap: "wrap" }}>
+      <View
+        style={{
+          width: 300,
+          height: 300,
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
         {board.map((cell, index) => (
           <TouchableOpacity
             key={index}
@@ -70,11 +100,18 @@ const TicTacToe = ({ isEnabled }) => {
               borderWidth: 2,
               borderColor: isEnabled ? "white" : "black",
               color: isEnabled ? "white" : "black",
-
             }}
             onPress={() => handlePress(index)}
           >
-            <Text style={{ fontSize: 32, fontWeight: "bold",color:isEnabled?"white":"black" }}>{cell}</Text>
+            <Text
+              style={{
+                fontSize: 32,
+                fontWeight: "bold",
+                color: isEnabled ? "white" : "black",
+              }}
+            >
+              {cell}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -89,22 +126,14 @@ const TicTacToe = ({ isEnabled }) => {
         }}
         onPress={resetGame}
       >
-        <Text style={{ color: isEnabled ? "white" : "black", fontSize: 18, fontWeight: "bold" }}>Restart Game</Text>
-      </TouchableOpacity>
-
-      {/* Full Screen Toggle Button */}
-      <TouchableOpacity
-        style={{
-          marginTop: 10,
-          padding: 10,
-          backgroundColor: isFullScreen ? "red" : "green",
-          borderRadius: 5,
-          color:isEnabled ? "white" : "black"
-        }}
-        onPress={() => setIsFullScreen(!isFullScreen)}
-      >
-        <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>
-          {isFullScreen ? "Exit Full Screen" : "Full Screen"}
+        <Text
+          style={{
+            color: isEnabled ? "white" : "black",
+            fontSize: 18,
+            fontWeight: "bold",
+          }}
+        >
+          Restart Game
         </Text>
       </TouchableOpacity>
     </View>
