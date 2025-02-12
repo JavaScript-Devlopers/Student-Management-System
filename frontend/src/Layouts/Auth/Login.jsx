@@ -1,25 +1,47 @@
 import React, { useState } from "react";
 import swal from 'sweetalert2'
+import { login } from '../../Services/auth/Auth'
 const Login = () => {
-    const [loginDetails , setLoginDetails] = useState({ email : "",password : ""})
+    const [loginDetails, setLoginDetails] = useState({ email: "", password: "" })
 
-    const userLogin = async()=>{
-        const req= {   Email : loginDetails.email,  Password : loginDetails.password}
+    const handleLogin = async () => {
+        const req = { Email: loginDetails.email, Password: loginDetails.password }
 
         await login(req)
-        .then((res)=>{
-            if(res.status){
-                swal.fire({
-                    icon : 'success',
-                    timer: 1500,
-                    title : "user login successfull",
-                    
-                })
+            .then((res) => {
+                if (res.status) {
+                    localStorage.setItem('userDetails', JSON.stringify(res.data))
+                    swal.fire({
+                        icon: 'success',
+                        timer: 1500,
+                        title: res.msg,
+                        timerProgressBar: true
+                    }).then(()=>{
+                        if(res.data.Role==0){
+                            navigate('superadmin/dashboard')
+                        }
+                        else if(res?.data?.Role==1){
+                            navigate('admin/bashboard')
+                        }
+                        else if(res?.data?.Role==2){
+                            navigate('student/bashboard')
+                        }
+                        else if(res?.data?.Role==3){
+                            navigate('teacher/bashboard')
+                        }
+                       
+                    })
+                }
+                else {
+                    swal.fire({
+                        icon: "error",
+                        title: res.msg,
+                        timerProgressBar: true,
+                        timer: 1500
 
-
-
-            }
-        })
+                    })
+                }
+            })
     }
 
     return (
@@ -46,7 +68,7 @@ const Login = () => {
                                         Enter your username &amp; password to login
                                     </p>
                                 </div>
-                                <form className="row g-3 needs-validation" noValidate="">
+                                <div className="row g-3">
                                     <div className="col-12">
                                         <label htmlFor="yourUsername" className="form-label">
                                             Username
@@ -63,9 +85,9 @@ const Login = () => {
                                                 name="username"
                                                 className="form-control"
                                                 value={loginDetails.email}
-                                                onChange={(e)=>setLoginDetails({
+                                                onChange={(e) => setLoginDetails({
                                                     ...loginDetails,
-                                                    email : e.target.value
+                                                    email: e.target.value
                                                 })}
                                             />
                                             <div className="invalid-feedback">
@@ -82,9 +104,9 @@ const Login = () => {
                                             name="password"
                                             className="form-control"
                                             value={loginDetails.password}
-                                            onChange={(e)=>setLoginDetails({
+                                            onChange={(e) => setLoginDetails({
                                                 ...loginDetails,
-                                                password : e.target.value
+                                                password: e.target.value
                                             })}
                                         />
                                         <div className="invalid-feedback">
@@ -109,7 +131,7 @@ const Login = () => {
                                         </div>
                                     </div>
                                     <div className="col-12">
-                                        <button className="btn btn-primary w-100" type="submit">
+                                        <button className="btn btn-primary w-100" onClick={handleLogin}>
                                             Login
                                         </button>
                                     </div>
@@ -119,14 +141,10 @@ const Login = () => {
                                             <a href="pages-register.html">Create an account</a>
                                         </p>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                         <div className="credits">
-                            {/* All the links in the footer should remain intact. */}
-                            {/* You can delete the links only if you purchased the pro version. */}
-                            {/* Licensing information: https://bootstrapmade.com/license/ */}
-                            {/* Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ */}
                             Designed by{" "}
                             <a href="https://bootstrapmade.com/">BootstrapMade</a>
                         </div>
