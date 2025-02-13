@@ -150,3 +150,13 @@ Contributions are welcome! Follow these steps:
 
 ## 📜 License
 MIT License. Feel free to use & modify! 😊
+
+
+## Git Hub 
+main
+ ├── develop
+ │    ├── feature/student-login
+ │    ├── feature/teacher-dashboard
+ │    ├── feature/bus-tracking
+ │
+ │── hotfix/urgent-fix
