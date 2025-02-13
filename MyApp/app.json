@@ -43,14 +43,14 @@
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/85d16a0f-0f9b-4a63-9f12-a07651a665c9"
+      "url": "https://u.expo.dev/1eae759b-06df-4995-95f4-7b29bb85785a"
     },
     "extra": {
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "85d16a0f-0f9b-4a63-9f12-a07651a665c9"
+        "projectId": "1eae759b-06df-4995-95f4-7b29bb85785a"
       }
     }
   }

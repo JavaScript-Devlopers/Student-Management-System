@@ -64,7 +64,7 @@ const projects = [
     description:
       "Developed a feature-rich Front-End for student enrollment, attendance, and grade management, reducing administrative workload by 25%. Optimized UI performance with React best practices, achieving 30% faster load times on low-bandwidth devices. Implemented interactive dashboards for administrators, streamlining oversight of academic and operational tasks.",
     url: "https://outbooks.tradestreet.in/#/login",
-    image: require("@/assets/images/Project/Outbook.png"), 
+    image: require("@/assets/images/Project/abudhabi.png"), 
   },
   {
     title: "Copy Trade",
@@ -73,7 +73,7 @@ const projects = [
     description:
       "Built a user-centric copy trading platform enabling seamless replication of trades to linked Demat accounts. Implemented real-time trade synchronization with WebSockets for accurate, low-latency transactions. Introduced a ranking system for top traders, boosting platform engagement and user activity by 20%. Delivered an intuitive dashboard for monitoring and managing copied trades, simplifying the user experience.",
     url: "https://outbooks.tradestreet.in/#/login",
-    image: require("@/assets/images/Project/Outbook.png"), 
+    image: require("@/assets/images/Project/copytrade.png"), 
   },
   {
     title: "Algo Trading",
