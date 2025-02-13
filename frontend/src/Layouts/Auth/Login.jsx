@@ -153,6 +153,10 @@ const Login = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="credits">
+                                Designed by{" "}
+                                <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                            </div>
                         </div>
                         <div className="credits">
                             Designed by{" "}
