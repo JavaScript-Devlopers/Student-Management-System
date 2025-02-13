@@ -38,22 +38,22 @@ const studentSchema = new Schema({
     },
     subject: [{
         type: mongoose.Schema.Types.ObjectId,
-        require: true,
+        required: true,
     }],
     studentId: {
         type: String,
         trim: true,
         unique: true,
-        require: true
+        required: true
     },
     ParentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Parent",
-        require: true
+        required: true
     },
     role: {
         type: String,
-        require: true,
+        required: true,
         default: "STUDENT",
     }
 })

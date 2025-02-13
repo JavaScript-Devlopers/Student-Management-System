@@ -44,11 +44,6 @@ const userModel = Schema({
         default: null
     },
 
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-
     Role: {
         type: String,
         required: true

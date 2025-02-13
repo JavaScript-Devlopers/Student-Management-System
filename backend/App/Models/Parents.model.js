@@ -5,30 +5,30 @@ const ParentSchema = new Schema({
     Fullname : {
         type : String,
         trim : true,
-        require : true,
+        required : true,
         default: null,
     },
     Email : {
         type: String,
         trim : true,
-        require : true,
+        required : true,
         unique: true,
     },
     PhoneNo : {
         type : String,
         trim : true,
-        require : true,
+        required : true,
         max : 10,
         unique : true,
     },
     Childs : [{
         type : mongoose.Schema.Types.ObjectId,
         ref : "Student",
-        require : true
+        required : true
     }],
     Role : { 
         type: String,
-        require : true,
+        required : true,
         trim : true,
         default : "PARENT",
     } 

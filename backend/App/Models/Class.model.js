@@ -3,7 +3,7 @@ const { model, Schema, default: mongoose } = require('mongoose')
 const classSchema = new Schema({
     className: {
         type: String,
-        require: true,
+        required: true,
         enum: [
             "Nursery", "LKG", "UKG",
             "Class 1", "Class 2", "Class 3", "Class 4", "Class 5",
@@ -18,7 +18,7 @@ const classSchema = new Schema({
     },
     classTeacher: {
         type: String,
-        require: true,
+        required: true,
     },
     teachers: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -28,12 +28,12 @@ const classSchema = new Schema({
     subject: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subject",
-        require: true
+        required: true
     }],
     student: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Student",
-        require: true,
+        required: true,
     }]
 },
     {
