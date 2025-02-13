@@ -91,6 +91,15 @@ class Auth {
             });
  
 
+
+
+
+
+
+
+
+            
+
             try {
                 return res.send({ status: true, msg: "Login Succesfully", data: EmailCheck })
             } catch (error) {
