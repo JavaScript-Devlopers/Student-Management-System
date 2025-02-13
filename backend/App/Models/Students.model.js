@@ -56,8 +56,8 @@ const studentSchema = new Schema({
         require: true,
         default: "STUDENT",
     }
-
-
-
-
 })
+
+const student_model = model("Student", studentSchema)
+
+module.exports = student_model
