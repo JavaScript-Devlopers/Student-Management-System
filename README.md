@@ -3,7 +3,6 @@
 ## 📌 Overview
 **School Management System** ek **React.js, React Native, Node.js, MongoDB, aur Razorpay** par based ek smart system hai jo **student, teacher, attendance, transport, task management, aur chat functionalities** ko automate karta hai.
 
----
 
 ## 🚀 Features
 ### 🎓 Student & Teacher Management
