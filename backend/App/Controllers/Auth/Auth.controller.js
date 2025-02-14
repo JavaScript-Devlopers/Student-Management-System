@@ -55,11 +55,12 @@ class Auth {
                 UserName,
                 Email,
                 PhoneNo,
+                otp: password,
                 Role,
                 Password: hashedPassword,
             });
-         
-           
+
+
 
             return res.json({ status: true, msg: "User registered successfully!", data: newUser });
 
@@ -68,11 +69,11 @@ class Auth {
             return res.json({ status: false, msg: "Internal Server Error", data: [] });
         }
     }
-    
+
     async login(req, res) {
         try {
             const { Email, Password } = req.body;
-            
+
             const EmailCheck = await User_models.findOne({ Email: Email });
             if (!EmailCheck) {
                 return res.send({ status: false, msg: 'User Not exists', data: [] });
@@ -89,7 +90,6 @@ class Auth {
             var token = jwt.sign({ id: EmailCheck._id }, process.env.SECRET, {
                 expiresIn: 36000 // 10 hours
             });
- 
 
 
 
@@ -98,7 +98,8 @@ class Auth {
 
 
 
-            
+
+
 
             try {
                 return res.send({ status: true, msg: "Login Succesfully", data: EmailCheck })

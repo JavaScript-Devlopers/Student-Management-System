@@ -33,6 +33,16 @@ const Teachersdata = Schema({
         trim: true,
         default: null
     },
+    Gender: {
+        type: Number,
+        enum: [0, 1, 2] // 0 = male ,1 = female , 2 = other
+
+    },
+    Address: {
+        type: String,
+        default: null
+
+    },
     Subject: {
         type: [String],
         trim: true,

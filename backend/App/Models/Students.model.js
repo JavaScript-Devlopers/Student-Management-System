@@ -1,4 +1,6 @@
 const { Schema, model } = require('mongoose')
+const mongoose = require('mongoose')
+
 
 const studentSchema = new Schema({
     FullName: {
@@ -21,7 +23,7 @@ const studentSchema = new Schema({
         unique: true,
         default: null
     },
-    PhoneNo: {
+    Student_PhoneNo: {
         type: String,
         required: true,
         trim: true,
@@ -36,11 +38,29 @@ const studentSchema = new Schema({
         trim: true,
         default: null
     },
+    Class_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
+    Gender: {
+        type: Number,
+        enum: [0, 1, 2] // 0 = male ,1 = female , 2 = other
+
+    },
+    DOB: {
+        type: Date,
+        required: true
+    },
+    Address: {
+        type: String,
+        default: null
+
+    },
     subject: [{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     }],
-    studentId: {
+    Roll_number: {
         type: String,
         trim: true,
         unique: true,
@@ -51,7 +71,7 @@ const studentSchema = new Schema({
         ref: "Parent",
         required: true
     },
-    role: {
+    Role: {
         type: String,
         required: true,
         default: "STUDENT",

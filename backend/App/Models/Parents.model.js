@@ -1,42 +1,55 @@
-const {model , Schema, default: mongoose} = require('mongoose')
+const { model, Schema, default: mongoose } = require('mongoose')
 const { schema } = require('./role.model')
 
 const ParentSchema = new Schema({
-    Fullname : {
-        type : String,
-        trim : true,
-        required : true,
+    FatherName: {
+        type: String,
+        trim: true,
+        required: true,
         default: null,
     },
-    Email : {
+    Mother_Name: {
         type: String,
-        trim : true,
-        required : true,
+        trim: true,
+        required: true,
+        default: null,
+    },
+    Parent_Email: {
+        type: String,
+        trim: true,
+        required: true,
         unique: true,
     },
-    PhoneNo : {
-        type : String,
-        trim : true,
-        required : true,
-        max : 10,
-        unique : true,
-    },
-    Childs : [{
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "Student",
-        required : true
-    }],
-    Role : { 
+    PhoneNo: {
         type: String,
-        required : true,
-        trim : true,
-        default : "PARENT",
-    } 
+        trim: true,
+        required: true,
+        max: 10,
+        unique: true,
+    },
+    Alternate_PhoneNo: {
+        type: String,
+        trim: true,
+        required: true,
+        max: 10,
+        unique: true,
+    },
+    Child_id: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Student",
+        required: true
+    }],
+    Role: {
+        type: String,
+        required: true,
+        trim: true,
+        default: "PARENT",
+    }
 
 },
-{
-    timestamps : true
-})
+    {
+        timestamps: true
+    })
 
 const Parent_model = model('Parent', ParentSchema)
 
