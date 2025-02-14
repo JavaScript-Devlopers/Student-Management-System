@@ -1,5 +1,5 @@
 const {model , Schema, default: mongoose} = require('mongoose')
-const { schema } = require('./role.model')
+
 
 const ParentSchema = new Schema({
     Fullname : {

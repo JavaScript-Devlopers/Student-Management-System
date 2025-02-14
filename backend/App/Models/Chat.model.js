@@ -1,5 +1,5 @@
 const {Schema , model} = require('mongoose')
-
+const mongoose = require('mongoose')
 const ChatSchema = new Schema({
     className : {
         type : mongoose.Schema.Types.ObjectId,

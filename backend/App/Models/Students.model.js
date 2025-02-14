@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose')
-
+const mongoose = require('mongoose')
 const studentSchema = new Schema({
     FullName: {
         type: String,
