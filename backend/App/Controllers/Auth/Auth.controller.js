@@ -58,6 +58,8 @@ class Auth {
                 Role,
                 Password: hashedPassword,
             });
+         
+           
 
             return res.json({ status: true, msg: "User registered successfully!", data: newUser });
 
@@ -70,8 +72,7 @@ class Auth {
     async login(req, res) {
         try {
             const { Email, Password } = req.body;
-            console.log("email", Email, Password)
-            return
+            
             const EmailCheck = await User_models.findOne({ Email: Email });
             if (!EmailCheck) {
                 return res.send({ status: false, msg: 'User Not exists', data: [] });
@@ -79,6 +80,7 @@ class Auth {
 
             // Password Check
             const validPassword = await bcrypt.compare(Password, EmailCheck.Password);
+            console.log("cc", validPassword)
             if (validPassword == false) {
                 return res.send({ status: false, msg: 'Password Not Match', data: [] });
             }
@@ -87,10 +89,19 @@ class Auth {
             var token = jwt.sign({ id: EmailCheck._id }, process.env.SECRET, {
                 expiresIn: 36000 // 10 hours
             });
+ 
 
+
+
+
+
+
+
+
+            
 
             try {
-                return res.send({ status: true, msg: "Login Succesfully", data: msg })
+                return res.send({ status: true, msg: "Login Succesfully", data: EmailCheck })
             } catch (error) {
                 console.log("Error Some Error in a login", error);
             }

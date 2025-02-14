@@ -1,0 +1,55 @@
+"use strict"
+
+const { Schema, model } = require('mongoose');
+const mongoose = require('mongoose')
+
+const Teachersdata = Schema({
+
+    FullName: {
+        type: String,
+        required: true,
+        trim: true,
+        default: null
+    },
+    Email: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true,
+        default: null
+    },
+    PhoneNo: {
+        type: String,
+        required: true,
+        trim: true,
+        min: 10,
+        max: 10,
+        unique: true,
+        default: null
+    },
+    Password: {
+        type: String,
+        required: true,
+        trim: true,
+        default: null
+    },
+    Subject: {
+        type: [String],
+        trim: true,
+        default: []
+    },
+    Role: {
+        type: String,
+        required: true
+    },
+},
+    {
+        timestamps: true
+    },
+
+)
+const Teacher_model = model('Teachers', Teachersdata);
+
+
+
+module.exports = Teacher_model;
