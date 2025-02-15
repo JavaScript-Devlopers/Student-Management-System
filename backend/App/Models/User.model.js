@@ -43,6 +43,10 @@ const userModel = Schema({
         trim: true,
         default: null
     },
+    otp: {
+        type : String,
+        default: null
+    },
 
     Role: {
         type: String,
