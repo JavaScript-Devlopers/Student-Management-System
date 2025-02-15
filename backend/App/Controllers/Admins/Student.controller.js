@@ -1,41 +1,13 @@
 "use strict";
 const mongoose = require('mongoose');
-const db = require('../../Models');
-const Subject_model = db.Subject_model;
 const bcrypt = require("bcrypt");
-const Student_model = db.Student_model
-const Parent_model = db.Parent_model
-
-class Admin {
-
-    async AddSubject(req, res) {
-        try {
-            const { Subject_Name, Subject_Code, Description, user_id } = req.body
-
-            const newSubject = new Subject_model({
-                Subject_Name,
-                Subject_Code,
-                Description,
-                user_id,
-
-            });
-
-            await newSubject.save();
+const db = require('../../Models');
+const student_db = db.Student_model;
 
 
-            return res.json({ status: true, msg: "Subject Added Successfully", data: newSubject })
+class Auth {
 
-        } catch (error) {
-
-            return res.json({ status: false, msg: "Server Error ", data: [] })
-
-        }
-    }
-
-
-
-
-    async AddStudent(req, res) {
+    async addStudent(req, res) {
         try {
             const {
                 FullName, UserName, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
@@ -108,7 +80,36 @@ class Admin {
         }
     }
 
+    async updateStudent(req, res) {
 
+
+    }
+
+    async getAllStudent(req, res) {
+        try {
+            const { classname, section } = req.body
+            if (classname == undefined || classname == null || classname == "") {
+                res.send({ status: false, msg: "Class Name is require", data: [] })
+            }
+
+            else if (section == undefined || section == null || section == "") {
+                res.send({ status: false, msg: "section name is require", data: [] })
+            }
+
+            const allStudents = await student_db.find()
+
+            console
+
+        }
+        catch (err) {
+            console.log("Error", err)
+            res.send({ status: true, msg: "internal server error", data: [] })
+
+        }
+
+
+    }
 }
 
-module.exports = new Admin
+
+module.exports = new Auth();

@@ -7,10 +7,11 @@ const bcrypt = require("bcrypt");
 
 class Teachers {
 
-    async Addteachers(req, res) {
+    async addTeachers(req, res) {
         try {
-            const { FullName, Email, PhoneNo, Password, Subject, Role } = req.body
+            const { FullName, Email, PhoneNo, Password, Gender, Address, Subject, Role } = req.body
 
+            
 
             if (!FullName) {
                 return res.json({ status: false, msg: "Full Name is required!", data: [] });
@@ -26,6 +27,13 @@ class Teachers {
             }
             if (!Password) {
                 return res.json({ status: false, msg: "Password is required!", data: [] });
+            }
+            if (Gender === undefined || Gender === "" || Gender === null) {
+                console.log("gent" , Gender)
+                return res.json({ status: false, msg: "Gender is required!", data: [] });
+            }
+            if (!Address) {
+                return res.json({ status: false, msg: "Address is required!", data: [] });
             }
 
             const existingUser = await Teacher_model.findOne({
@@ -52,7 +60,9 @@ class Teachers {
                 PhoneNo,
                 Password: hashedPassword,
                 Subject,
-                Role
+                Role,
+                Gender,
+                Address
             });
 
             await newTeacher.save();

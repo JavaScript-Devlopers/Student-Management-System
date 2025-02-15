@@ -39,6 +39,12 @@ const studentSchema = new Schema({
     Class_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+        ref : "Class"
+    },
+    section: {
+        type: String,
+        enum: ["A", "B", "C", "D", "E"],
+        default: "A",
     },
     Gender: {
         type: Number,
@@ -57,6 +63,7 @@ const studentSchema = new Schema({
     subject: [{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
+        ref : 'Subject'
     }],
     Roll_number: {
         type: String,
