@@ -1,7 +1,5 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
-import DataTableExtensions from 'react-data-table-component-extensions';
-import 'react-data-table-component-extensions/dist/index.css';
 
 const Datatable = ({ columns, data, filter}) => {
   const noDataImage = '/assets/img/no-data.png';

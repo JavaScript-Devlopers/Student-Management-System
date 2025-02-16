@@ -253,8 +253,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            {/* End Recent Activity */}
-            {/* Budget Report */}
+           
             <div className="card">
               <div className="filter">
                 <a className="icon" href="#" data-bs-toggle="dropdown">

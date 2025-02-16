@@ -37,11 +37,6 @@ const ParentSchema = new Schema({
         unique: true,
         default : null
     },
-    // Child_id: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Student",
-    //     required: true
-    // }],
     Role: {
         type: String,
         required: true,
