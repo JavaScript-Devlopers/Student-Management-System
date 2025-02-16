@@ -25,6 +25,7 @@ const ParentSchema = new Schema({
         trim: true,
         required: true,
         max: 10,
+        min: 10,
         unique: true,
     },
     Alternate_PhoneNo: {
@@ -32,20 +33,21 @@ const ParentSchema = new Schema({
         trim: true,
         required: true,
         max: 10,
+        min :10,
         unique: true,
+        default : null
     },
-    Child_id: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Student",
-        required: true
-    }],
+    // Child_id: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Student",
+    //     required: true
+    // }],
     Role: {
         type: String,
         required: true,
         trim: true,
         default: "PARENT",
     }
-
 },
     {
         timestamps: true

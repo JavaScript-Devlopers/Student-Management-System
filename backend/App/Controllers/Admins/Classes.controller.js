@@ -8,6 +8,8 @@ const class_db = db.class_model
 
 class ClassName {
     async addClass (req, res){
+        const {}
+        
 
     }
 

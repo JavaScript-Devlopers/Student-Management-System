@@ -3,35 +3,43 @@ const mongoose = require('mongoose');
 const db = require('../../Models');
 const Subject_model = db.Subject_model;
 
-class Admin {
+class Subjects {
 
-    async AddSubject(req, res) {
+    async addSubject(req, res) {
         try {
             const { Subject_Name, Subject_Code, Description, user_id } = req.body
 
+            const isExits = await Subject_model.findOne({ Subject_Code : Subject_Code })
+
+            
+            if (isExits) {
+                return res.send({ status: false, msg: "Subject code is already Exits", data: [] })
+            }
+            
+            
             const newSubject = new Subject_model({
                 Subject_Name,
                 Subject_Code,
                 Description,
                 user_id,
-
+                
             });
-
+            
             await newSubject.save();
 
 
-            return res.json({ status: true, msg: "Subject Added Successfully", data: newSubject })
+            return res.json({ status: true, msg: "Subject Added Successfully", data: newSubject})
 
         } catch (error) {
-
+            console.log("err", error)
             return res.json({ status: false, msg: "Server Error ", data: [] })
 
         }
     }
 
-    
+
 
 
 }
 
-module.exports = new Admin
+module.exports = new Subjects

@@ -2,7 +2,7 @@
 
 const router = require('express').Router()
 
-const {addClass , updateClass, deleteClass} = require('../../Controllers/Classes/Classes.controller') 
+const {addClass , updateClass, deleteClass} = require('../../Controllers/Admins/Classes.controller') 
 
 router.post('/addClass', addClass)
 router.post('/updateClass', updateClass)
