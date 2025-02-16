@@ -10,15 +10,13 @@ class Auth {
     async addStudent(req, res) {
         try {
             const {
-                FullName, StudentID_Card, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
-                Address, subject, Roll_number, ParentId, Role, Alternate_PhoneNo, FatherName,
-                Mother_Name, Parent_Email, PhoneNo
+                FullName, Enrolment_Number, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
+                Address, subject, ParentId, Role, Alternate_PhoneNo, FatherName,
+                Mother_Name, Parent_Email, PhoneNo , section
             } = req.body;
 
-            // Roll_number, StudentID_Card
-
             if (!FullName || !Email || !Student_PhoneNo || !Password || !Gender || !Class_id ||
-                !DOB || !Address || !subject || !ParentId) {
+                !DOB || !Address || !subject || !ParentId || !Enrolment_Number || !section || !FatherName || !Mother_Name || !Parent_Email || !PhoneNo || !Role) {
                 return res.json({ status: false, msg: "All fields are required", data: [] });
             }
 
@@ -28,6 +26,9 @@ class Auth {
             if (existingEmail) {
                 return res.json({ status: false, msg: "Email already exists", data: [] });
             }
+
+            const findRoleNumber = await Student_model.countDocuments({ Class_id, section });
+            const rollNumber = findRoleNumber + 1;
 
 
 
@@ -50,10 +51,9 @@ class Auth {
             // };
             
             
-            const normalizedUserName = UserName.toLowerCase().trim();
-
-            const existingUserName = await Student_model.findOne({ UserName: normalizedUserName });
-            if (existingUserName) {
+            const normalizedEnrolmentNumber = UserName.toLowerCase().trim();
+            const existingEnrolmentNumber = await Student_model.findOne({ UserName: normalizedEnrolmentNumber });
+            if (existingEnrolmentNumber) {
                 return res.json({ status: false, msg: "Username already exists", data: [] });
             }
 
@@ -76,7 +76,7 @@ class Auth {
 
             const newStudent = new Student_model({
                 FullName,
-                UserName: normalizedUserName,
+                Enrolment_Number: normalizedEnrolmentNumber,
                 Email: normalizedEmail,
                 Student_PhoneNo,
                 Password: hashedPassword,
@@ -84,7 +84,7 @@ class Auth {
                 DOB,
                 Address,
                 subject,
-                Roll_number,
+                Roll_number : rollNumber,
                 ParentId: newParents._id,
                 Role,
                 Class_id

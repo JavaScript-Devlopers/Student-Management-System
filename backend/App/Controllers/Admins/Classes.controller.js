@@ -8,7 +8,12 @@ const class_db = db.class_model
 
 class ClassName {
     async addClass (req, res){
-        const {}
+        const {className , section , classTeacher , teachers , subject} = req.body
+        if(!className || !section || !classTeacher || !teachers || !subject){
+            return res.send({status : false , msg: "All field require" , data : []})
+        }
+
+        
         
 
     }

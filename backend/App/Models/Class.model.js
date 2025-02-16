@@ -31,11 +31,7 @@ const classSchema = new Schema({
         ref: "Subject",
         required: true
     }],
-    // student: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Student",
-    //     required: true,
-    // }]
+  
 },
     {
         timestamps: true

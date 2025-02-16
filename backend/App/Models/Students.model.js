@@ -7,7 +7,7 @@ const studentSchema = new Schema({
         trim: true,
         default: null
     },
-    StudentID_Card: {
+    Enrolment_Number: {
         type: String,
         required: true,
         trim: true,
