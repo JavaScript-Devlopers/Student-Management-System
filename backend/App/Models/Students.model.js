@@ -7,7 +7,7 @@ const studentSchema = new Schema({
         trim: true,
         default: null
     },
-    UserName: {
+    StudentID_Card: {
         type: String,
         required: true,
         trim: true,
@@ -19,7 +19,6 @@ const studentSchema = new Schema({
         required: true,
         trim: true,
         unique: true,
-        default: null
     },
     Student_PhoneNo: {
         type: String,
@@ -28,7 +27,6 @@ const studentSchema = new Schema({
         min: 10,
         max: 10,
         unique: true,
-        default: null
     },
     Password: {
         type: String,

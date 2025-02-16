@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const db = require('../../Models');
-const student_db = db.Student_model;
+const Student_model = db.Student_model;
 
 
 class Auth {
@@ -10,27 +10,47 @@ class Auth {
     async addStudent(req, res) {
         try {
             const {
-                FullName, UserName, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
+                FullName, StudentID_Card, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
                 Address, subject, Roll_number, ParentId, Role, Alternate_PhoneNo, FatherName,
                 Mother_Name, Parent_Email, PhoneNo
             } = req.body;
 
+            // Roll_number, StudentID_Card
 
-            if (!FullName || !UserName || !Email || !Student_PhoneNo || !Password || !Gender ||
-                !DOB || !Address || !subject || !studentId || !ParentId || !Role) {
+            if (!FullName || !Email || !Student_PhoneNo || !Password || !Gender || !Class_id ||
+                !DOB || !Address || !subject || !ParentId) {
                 return res.json({ status: false, msg: "All fields are required", data: [] });
             }
 
 
             const normalizedEmail = Email.toLowerCase().trim();
-            const normalizedUserName = UserName.toLowerCase().trim();
-
-
             const existingEmail = await Student_model.findOne({ Email: normalizedEmail });
             if (existingEmail) {
                 return res.json({ status: false, msg: "Email already exists", data: [] });
             }
 
+
+
+            // const classPrefixes = {
+            //     "Nursery": "NRS",
+            //     "LKG": "LKG",
+            //     "UKG": "UKG",
+            //     "Class 1": "CLS1",
+            //     "Class 2": "CLS2",
+            //     "Class 3": "CLS3",
+            //     "Class 4": "CLS4",
+            //     "Class 5": "CLS5",
+            //     "Class 6": "CLS6",
+            //     "Class 7": "CLS7",
+            //     "Class 8": "CLS8",
+            //     "Class 9": "CLS9",
+            //     "Class 10": "CLS10",
+            //     "Class 11": "CLS11",
+            //     "Class 12": "CLS12"
+            // };
+            
+            
+            const normalizedUserName = UserName.toLowerCase().trim();
 
             const existingUserName = await Student_model.findOne({ UserName: normalizedUserName });
             if (existingUserName) {
