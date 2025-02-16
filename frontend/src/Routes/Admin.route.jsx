@@ -4,6 +4,7 @@ import Header from '../ExtraComponent/Header';
 import SideBar from '../ExtraComponent/SideBar';
 import AdminDashboard from '../Layouts/Admin/Dashboard/Dasboard';
 import StudentDashboard from '../Layouts/Admin/Students/AllStudents';
+import AddStudent from '../Layouts/Admin/Students/AddStudent';
 
 
 
@@ -19,6 +20,9 @@ const UserRoutes = () => {
                         <Routes>
                             <Route path="/dashboard" element={<AdminDashboard />} />
                             <Route path="/all-students" element={<StudentDashboard />} />
+                            <Route path="/add-students" element={<AddStudent/>} />
+
+
 
                         </Routes>
                     </div>

@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const ReusableForm = ({
-  fieldtype,
+  fields,
   formik,
   btn_name,
   title,
@@ -48,7 +48,7 @@ const ReusableForm = ({
         }}
       >
         <div className={`row`}>
-          {fieldtype.map((field, index) => (
+          {fields?.map((field, index) => (
             <>
               {field.type === "text" ? (
                 <>

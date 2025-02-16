@@ -14,8 +14,7 @@ const Routing = () => {
     const location = useLocation();
     const roles = localStorage.getItem("role");
     const user_details = JSON.parse(localStorage.getItem("userDetails"));
-    console.log("ccc", roles)
-    console.log("sss", user_details)
+  
 
 
 
