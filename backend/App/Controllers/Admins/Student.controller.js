@@ -18,7 +18,7 @@ class Auth {
 
             if (!FullName || !Email || !Student_PhoneNo || !Password || !Gender || !Class_id ||
                 !DOB || !Address || !subject || !Enrolment_Number || !section || !FatherName || !Mother_Name || !Parent_Email || !PhoneNo || !Role) {
-                return res.json({ status: false, msg: "All fields are required", data: [] });
+                return res.json({ status: false, msg: "fields are Missing", data: [] });
             }
 
 
