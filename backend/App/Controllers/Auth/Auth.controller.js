@@ -91,15 +91,7 @@ class Auth {
                 expiresIn: 36000 // 10 hours
             });
 
-
-
-
-
-
-
-
-
-
+ 
 
             try {
                 return res.send({ status: true, msg: "Login Succesfully", data: EmailCheck })
