@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcrypt");
 const db = require('../../Models');
 const Student_model = db.Student_model;
-
+const User = db.User
+const Parent_model = db.Parent_model
 
 class Auth {
 
@@ -12,7 +13,7 @@ class Auth {
             const {
                 FullName, Enrolment_Number, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
                 Address, subject, ParentId, Role, Alternate_PhoneNo, FatherName,
-                Mother_Name, Parent_Email, PhoneNo , section
+                Mother_Name, Parent_Email, PhoneNo, section
             } = req.body;
 
             if (!FullName || !Email || !Student_PhoneNo || !Password || !Gender || !Class_id ||
@@ -27,45 +28,31 @@ class Auth {
                 return res.json({ status: false, msg: "Email already exists", data: [] });
             }
 
-            const findRoleNumber = await Student_model.countDocuments({ Class_id, section });
-            const rollNumber = findRoleNumber + 1;
+            // const findRoleNumber = await Student_model.countDocuments({ Class_id, section });
+            // const rollNumber = findRoleNumber + 1;
 
-
-
-            // const classPrefixes = {
-            //     "Nursery": "NRS",
-            //     "LKG": "LKG",
-            //     "UKG": "UKG",
-            //     "Class 1": "CLS1",
-            //     "Class 2": "CLS2",
-            //     "Class 3": "CLS3",
-            //     "Class 4": "CLS4",
-            //     "Class 5": "CLS5",
-            //     "Class 6": "CLS6",
-            //     "Class 7": "CLS7",
-            //     "Class 8": "CLS8",
-            //     "Class 9": "CLS9",
-            //     "Class 10": "CLS10",
-            //     "Class 11": "CLS11",
-            //     "Class 12": "CLS12"
-            // };
-            
-            
             const normalizedEnrolmentNumber = UserName.toLowerCase().trim();
             const existingEnrolmentNumber = await Student_model.findOne({ UserName: normalizedEnrolmentNumber });
             if (existingEnrolmentNumber) {
                 return res.json({ status: false, msg: "Username already exists", data: [] });
             }
 
-
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(Password, salt);
 
+            const newUser = new User({
+                FullName,
+                Email,
+                Password: hashedPassword,
+                otp: Password,
+                Role
+            });
+
+            await newUser.save();
 
             const newParents = new Parent_model({
                 FatherName,
                 Mother_Name,
-                Parent_Email,
                 PhoneNo,
                 Role,
                 Alternate_PhoneNo
@@ -84,10 +71,14 @@ class Auth {
                 DOB,
                 Address,
                 subject,
-                Roll_number : rollNumber,
+                Roll_number: rollNumber,
                 ParentId: newParents._id,
                 Role,
-                Class_id
+                Class_id,
+                section,
+                User_id: newUser._id
+
+
             });
 
             await newStudent.save();
@@ -99,6 +90,9 @@ class Auth {
             return res.json({ status: false, msg: "Server Error", data: [] });
         }
     }
+
+
+
 
     async updateStudent(req, res) {
 
