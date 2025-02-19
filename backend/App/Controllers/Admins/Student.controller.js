@@ -12,12 +12,12 @@ class Auth {
         try {
             const {
                 FullName, Enrolment_Number, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
-                Address, subject, ParentId, Role, Alternate_PhoneNo, FatherName,
+                Address, subject, Role, Alternate_PhoneNo, FatherName,
                 Mother_Name, PhoneNo, section, District, State
             } = req.body;
 
             if (!FullName || !Email || !Student_PhoneNo || !Password || !Gender || !Class_id ||
-                !DOB || !Address || !subject || !ParentId || !Enrolment_Number || !section || !FatherName || !Mother_Name || !Parent_Email || !PhoneNo || !Role) {
+                !DOB || !Address || !subject || !Enrolment_Number || !section || !FatherName || !Mother_Name || !Parent_Email || !PhoneNo || !Role) {
                 return res.json({ status: false, msg: "All fields are required", data: [] });
             }
 
@@ -79,9 +79,6 @@ class Auth {
                 User_id: newUser._id,
                 District,
                 State,
-
-
-
             });
 
             await newStudent.save();
@@ -98,9 +95,79 @@ class Auth {
 
 
     async updateStudent(req, res) {
+        try {
+            const { _id } = req.body;
+
+            if (!_id) {
+                return res.json({ status: false, msg: "Student ID is required", data: [] });
+            }
+
+            const existingStudent = await Student_model.findById(_id);
+            if (!existingStudent) {
+                return res.json({ status: false, msg: "Student not found", data: [] });
+            }
+
+            const {
+                FullName, Enrolment_Number, Email, Student_PhoneNo, Gender, DOB,
+                Address, subject, ParentId, Role, Alternate_PhoneNo, FatherName,
+                Mother_Name, PhoneNo, section, District, State
+            } = req.body;
 
 
+            if (Email) {
+                const normalizedEmail = Email.toLowerCase().trim();
+                const emailExists = await Student_model.findOne({ Email: normalizedEmail, _id: { $ne: _id } });
+                if (emailExists) {
+                    return res.json({ status: false, msg: "Email already exists", data: [] });
+                }
+            }
+
+
+            if (Enrolment_Number) {
+                const normalizedEnrolmentNumber = Enrolment_Number.toLowerCase().trim();
+                const enrolmentExists = await Student_model.findOne({ Enrolment_Number: normalizedEnrolmentNumber, _id: { $ne: _id } });
+                if (enrolmentExists) {
+                    return res.json({ status: false, msg: "Enrolment Number already exists", data: [] });
+                }
+            }
+
+            // Update student details
+            const updatedStudent = await Student_model.findByIdAndUpdate(
+                _id,
+                {
+                    FullName,
+                    Enrolment_Number,
+                    Email,
+                    Student_PhoneNo,
+                    Gender,
+                    DOB,
+                    Address,
+                    subject,
+                    ParentId,
+                    Role,
+                    section,
+                    District,
+                    State,
+                    Alternate_PhoneNo,
+                    FatherName,
+                    Mother_Name,
+                    PhoneNo
+                },
+                { new: true }
+            );
+
+            if (!updatedStudent) {
+                return res.json({ status: false, msg: "Failed to update student", data: [] });
+            }
+
+            return res.json({ status: true, msg: "Student updated successfully", data: updatedStudent });
+
+        } catch (error) {
+            console.error("Error updating student:", error);
+            return res.status(500).json({ status: false, msg: "Server Error", data: [] });
+        }
     }
+
 
     async getAllStudent(req, res) {
         try {
