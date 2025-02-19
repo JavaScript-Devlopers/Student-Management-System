@@ -175,11 +175,10 @@ const ReusableForm = ({
                           className="form-control"
                         />
                         <i
-                          className={`fa-solid ${
-                            passwordVisible[field.name]
+                          className={`fa-solid ${passwordVisible[field.name]
                               ? "fa-eye-slash"
                               : "fa-eye"
-                          }`}
+                            }`}
                           style={{
                             position: "absolute",
                             top: "1.5px",
@@ -207,9 +206,8 @@ const ReusableForm = ({
               ) : field.type === "select" ? (
                 <>
                   <div
-                    className={`col-lg-${
-                      title === "update_theme" ? 12 : field.col_size
-                    }`}
+                    className={`col-lg-${title === "update_theme" ? 12 : field.col_size
+                      }`}
                   >
                     <div className=" row">
                       <label
@@ -358,7 +356,7 @@ const ReusableForm = ({
                         value={field.value2}
                         className={
                           formik.touched[field.name] &&
-                          formik.errors[field.name]
+                            formik.errors[field.name]
                             ? "form-check-input error-field"
                             : " form-check-input"
                         }
@@ -376,7 +374,7 @@ const ReusableForm = ({
                 </>
               ) : field.type === "date" ? (
                 <>
-                  <div className="col-lg-3">
+                  <div className="col-lg-6">
                     <div className="row d-flex">
                       <div className="col-lg-12 ">
                         <div className="form-check custom-checkbox mb-3">
@@ -467,13 +465,11 @@ const ReusableForm = ({
             <i className="fa fa-xmark"></i> Cancel
           </button>
           <button
-            className={`btn btn-pink rounded  ${
-              location.pathname === "resetpassword" ? "col-md-11" : ""
-            }`}
+            className={`btn btn-primary rounded mx-2  ${location.pathname === "resetpassword" ? "col-md-11" : ""}`}
             type="submit"
             disabled={formik.isSubmitting}
           >
-            <i className="far fa-save"></i> {btn_name}
+            <i className="bi bi-save"></i> {btn_name}
           </button>
         </div>
       </div>

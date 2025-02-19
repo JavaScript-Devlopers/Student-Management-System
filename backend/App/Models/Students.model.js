@@ -73,12 +73,7 @@ const studentSchema = new Schema({
         required: true,
         ref: 'Subject'
     }],
-    Roll_number: {
-        type: String,
-        trim: true,
-        unique: true,
-        required: true
-    },
+    
 
     ParentId: {
         type: mongoose.Schema.Types.ObjectId,

@@ -1306,3 +1306,6 @@ ul.breadcrumb-links li a {
   }
 }
 
+.breadcrumb a {
+  color: #f8f8fa;
+}

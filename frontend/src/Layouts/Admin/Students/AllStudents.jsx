@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Datatable from '../../../Components/ReusableTable'
 import { useNavigate } from "react-router-dom";
+import Content from "../../../ExtraComponent/Content/Contents";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -131,17 +132,23 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="pagetitle">
-        <h1>All Student</h1>
-        <div className="d-flex justify-content-end">
-          <button className="btn btn-primary" onClick={()=>navigate('/admin/add-students')}>Add Student</button>
+      <Content
+        Page_title="All Student"
+        button_status={true}
+        backbutton_status={true}
+        backForword={true}
+        route="/admin/add-students"
+        button_title="Add Student"
+      >
+        <div className="pagetitle">
+          <Datatable
+            columns={columns}
+            data={data}
+            filter={false}
+          />
         </div>
-        <Datatable
-          columns={columns}
-          data={data}
-          filter={false}
-        />
-      </div>
+
+      </Content>
 
 
 
