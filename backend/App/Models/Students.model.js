@@ -37,7 +37,7 @@ const studentSchema = new Schema({
     Class_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref : "Class"
+        ref: "Class"
     },
     section: {
         type: String,
@@ -61,7 +61,7 @@ const studentSchema = new Schema({
     subject: [{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref : 'Subject'
+        ref: 'Subject'
     }],
     Roll_number: {
         type: String,
@@ -70,6 +70,11 @@ const studentSchema = new Schema({
         required: true
     },
     ParentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Parent",
+        required: true
+    },
+    User_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Parent",
         required: true

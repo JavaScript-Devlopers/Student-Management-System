@@ -1,4 +1,4 @@
-const {model , Schema, default: mongoose} = require('mongoose')
+const { model, Schema, default: mongoose } = require('mongoose')
 
 
 const ParentSchema = new Schema({
@@ -17,7 +17,6 @@ const ParentSchema = new Schema({
     Parent_Email: {
         type: String,
         trim: true,
-        required: true,
         unique: true,
     },
     PhoneNo: {
@@ -33,9 +32,14 @@ const ParentSchema = new Schema({
         trim: true,
         required: true,
         max: 10,
-        min :10,
+        min: 10,
         unique: true,
-        default : null
+        default: null
+    },
+    User_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Parent",
+        required: true
     },
     Role: {
         type: String,
