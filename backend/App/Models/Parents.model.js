@@ -38,8 +38,8 @@ const ParentSchema = new Schema({
     },
     User_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Parent",
-        required: true
+        ref: "User",
+        default: null
     },
     Role: {
         type: String,

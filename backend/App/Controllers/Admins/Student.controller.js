@@ -10,16 +10,20 @@ class Auth {
 
     async addStudent(req, res) {
         try {
+
+
             const {
                 FullName, Enrolment_Number, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
                 Address, subject, Role, Alternate_PhoneNo, FatherName,
                 Mother_Name, PhoneNo, section, District, State
             } = req.body;
 
+
             if (!FullName || !Email || !Student_PhoneNo || !Password || !Gender || !Class_id ||
-                !DOB || !Address || !subject || !Enrolment_Number || !section || !FatherName || !Mother_Name || !Parent_Email || !PhoneNo || !Role) {
+                !DOB || !Address || !subject || !Enrolment_Number || !section || !FatherName || !Mother_Name || !PhoneNo || !Role) {
                 return res.json({ status: false, msg: "All fields are required", data: [] });
             }
+
 
 
             const normalizedEmail = Email.toLowerCase().trim();
@@ -28,14 +32,14 @@ class Auth {
                 return res.json({ status: false, msg: "Email already exists", data: [] });
             }
 
-            // const findRoleNumber = await Student_model.countDocuments({ Class_id, section });
-            // const rollNumber = findRoleNumber + 1;
+
 
             const normalizedEnrolmentNumber = Enrolment_Number.toLowerCase().trim();
             const existingEnrolmentNumber = await Student_model.findOne({ Enrolment_Number: normalizedEnrolmentNumber });
             if (existingEnrolmentNumber) {
                 return res.json({ status: false, msg: "Enrolment Number already exists", data: [] });
             }
+
 
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(Password, salt);
@@ -47,6 +51,7 @@ class Auth {
                 otp: Password,
                 Role
             });
+
 
             await newUser.save();
 
@@ -60,7 +65,6 @@ class Auth {
 
             await newParents.save();
 
-
             const newStudent = new Student_model({
                 FullName,
                 Enrolment_Number: normalizedEnrolmentNumber,
@@ -71,7 +75,6 @@ class Auth {
                 DOB,
                 Address,
                 subject,
-                Roll_number: rollNumber,
                 ParentId: newParents._id,
                 Role,
                 Class_id,
@@ -82,7 +85,6 @@ class Auth {
             });
 
             await newStudent.save();
-
             return res.json({ status: true, msg: "Student added successfully", data: newStudent });
 
         } catch (error) {
@@ -186,7 +188,7 @@ class Auth {
 
         }
         catch (err) {
-            console.log("Error", err)
+           
             res.send({ status: true, msg: "internal server error", data: [] })
 
         }

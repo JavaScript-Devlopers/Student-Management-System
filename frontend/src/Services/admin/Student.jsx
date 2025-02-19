@@ -15,3 +15,17 @@ export async function AddStudent(data , token) {
     }
 
 }
+
+export async function getAllSubject(data , token) {
+    try {
+        const res = await axios.get(`${Config.base_url}getAllSubject`, data, {
+            data: {},
+        })
+        return await res?.data;
+    }
+    catch (err) {
+        return await err;
+
+    }
+
+}

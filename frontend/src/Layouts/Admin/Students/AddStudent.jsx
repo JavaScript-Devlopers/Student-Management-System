@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import AddFrom from "../../../Components/ReusableFrom";
 import Content from "../../../ExtraComponent/Content/Contents";
-import { AddStudent } from "../../../Services/admin/Student";
+import { AddStudent , getAllSubject } from "../../../Services/admin/Student";
 import Swal from "sweetalert2";
 
 const Dashboard = () => {
@@ -13,6 +13,10 @@ const Dashboard = () => {
     const [allStudents, setAllStudents] = useState([]);
     const [dashboardData, setDashboardData] = useState({});
 
+
+    useEffect(() => {
+        getSubject();
+    }, []);
 
 
     const formik = useFormik({
@@ -37,7 +41,7 @@ const Dashboard = () => {
             State: "",
 
         },
-        validate : (values) => {
+        validate: (values) => {
             const errors = {};
             if (!values.FullName) {
                 errors.FullName = "Required";
@@ -72,9 +76,9 @@ const Dashboard = () => {
             if (!values.subject) {
                 errors.subject = "Required";
             }
-          
-            
-           
+
+
+
             if (!values.FatherName) {
                 errors.FatherName = "Required";
             }
@@ -96,7 +100,7 @@ const Dashboard = () => {
             console.log("errors", errors);
             return errors;
         },
-           
+
         onSubmit: async (values) => {
             const req = {
                 FullName: values.FullName,
@@ -104,12 +108,13 @@ const Dashboard = () => {
                 Student_PhoneNo: values.Student_PhoneNo,
                 Password: values.Password,
                 Enrolment_Number: values.Enrolment_Number,
-                Class_id: values.Class_id,
+                // Class_id: values.Class_id,
+                Class_id: "67b069363192978d129230d8",
                 Gender: values.Gender,
                 DOB: values.DOB,
                 Address: values.Address,
                 subject: values.subject,
-                Role: values.Role,
+                Role: "1",
                 Alternate_PhoneNo: values.Alternate_PhoneNo,
                 FatherName: values.FatherName,
                 Mother_Name: values.Mother_Name,
@@ -127,7 +132,7 @@ const Dashboard = () => {
                             icon: "success",
                             title: "Student Added Successfully",
                         });
-                        
+
                         formik.resetForm();
                     } else {
                         Swal.fire({
@@ -277,14 +282,10 @@ const Dashboard = () => {
             name: "subject",
             label: "Subjects",
             type: "select",
-            options: [
-                { value: "Geography", label: "Geography" },
-                { value: "History", label: "History" },
-                { value: "Physics", label: "Physics" },
-                { value: "Chemistry", label: "Chemistry" },
-                { value: "Biology", label: "Biology" },
-                { value: "Mathematics", label: "Mathematics" },
-            ],
+            options: allStudents.map((subject) => ({
+                value: subject._id,
+                label: subject.Subject_Name,
+            })),
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -315,7 +316,7 @@ const Dashboard = () => {
             disable: false,
         },
         {
-            name: "AlternatePhoneNo",
+            name: "Alternate_PhoneNo",
             label: "Alternate Phone number",
             type: "text",
             label_size: 12,
@@ -327,7 +328,17 @@ const Dashboard = () => {
 
     ];
 
-
+    const getSubject = async () => {
+        const res = await getAllSubject()
+            .then((res) => {
+                if (res.status) {
+                    setAllStudents(res.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     return (
         <>
