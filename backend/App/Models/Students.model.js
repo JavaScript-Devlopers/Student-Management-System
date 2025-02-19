@@ -58,6 +58,16 @@ const studentSchema = new Schema({
         default: null
 
     },
+    State: {
+        type: String,
+        default: null
+
+    },
+    District: {
+        type: String,
+        default: null
+
+    },
     subject: [{
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -69,6 +79,7 @@ const studentSchema = new Schema({
         unique: true,
         required: true
     },
+
     ParentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Parent",

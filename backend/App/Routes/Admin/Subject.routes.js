@@ -2,10 +2,11 @@
 
 const router = require("express").Router()
 
-const { addSubject, } = require("../../Controllers/Admins/Subjects.controller")
+const { addSubject, getAllSubject } = require("../../Controllers/Admins/Subjects.controller")
 
 router.post('/addSubject', addSubject)
+router.get('/getAllSubject', getAllSubject)
 
- 
+
 
 module.exports = router;

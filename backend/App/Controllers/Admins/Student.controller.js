@@ -13,7 +13,7 @@ class Auth {
             const {
                 FullName, Enrolment_Number, Email, Student_PhoneNo, Password, Class_id, Gender, DOB,
                 Address, subject, ParentId, Role, Alternate_PhoneNo, FatherName,
-                Mother_Name, Parent_Email, PhoneNo, section
+                Mother_Name, PhoneNo, section, District, State
             } = req.body;
 
             if (!FullName || !Email || !Student_PhoneNo || !Password || !Gender || !Class_id ||
@@ -76,7 +76,10 @@ class Auth {
                 Role,
                 Class_id,
                 section,
-                User_id: newUser._id
+                User_id: newUser._id,
+                District,
+                State,
+
 
 
             });
