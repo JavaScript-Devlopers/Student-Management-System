@@ -45,7 +45,7 @@ const Dashboard = () => {
     });
 
     const fields = [
-        {
+        { 
             name: "StudentName",
             label: "Student Name",
             type: "text",
@@ -183,11 +183,8 @@ const Dashboard = () => {
                 backbutton_status={true}
                 backForword={true}
             >
-                <div className="pagetitle">
-                    <h1>Dashboard</h1>
-                    <div className="d-flex justify-content-end">
-                        <button className="btn btn-primary">Add Student</button>
-                    </div>
+                <div className="mt-5">
+                  
                     <AddFrom
                         fields={fields.filter(
                             (fields) => !fields.showWhen || fields.showWhen(formik.values)

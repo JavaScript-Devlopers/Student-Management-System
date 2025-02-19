@@ -1305,3 +1305,7 @@ ul.breadcrumb-links li a {
     display: block;
   }
 }
+
+.breadcrumb a {
+  color: #f8f8fa;
+}

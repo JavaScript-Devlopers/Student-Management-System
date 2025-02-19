@@ -52,13 +52,13 @@ const Content = ({
                         <div className="col-lg-6">
                             {backbutton_status && backbutton_title && (
                                 <button
-                                    onClick={handleBackClick} // Handle back button click
-                                    className="btn btn-primary float-lg-end ms-3"
+                                    onClick={handleBackClick}
+                                    className="btn btn-primary float-lg-end ms-3" style={{marginLeft: "10px"}}
                                 >
                                     <i
-                                        className={`fa-solid ${backbutton_title === "Back"
-                                            ? "fa-arrow-left"
-                                            : "fa-arrow-left"
+                                        className={`bi bi-solid ${backbutton_title === "Back"
+                                            ? "bi bi-arrow-left"
+                                            : "bi bi-arrow-left"
                                             }`}
                                     ></i>{" "}
                                     {backbutton_title}
@@ -68,10 +68,10 @@ const Content = ({
                                 <Link
                                     to={route}
                                     className="btn btn-primary float-lg-end"
-                                    style={{ padding: "10px !important" }}
+                                    style={{ padding: "10px !important", marginLeft: "10px" }}
                                 >
                                     <i
-                                        className={`fa-solid  ${button_title === "Back" ? "fa-arrow-left" : "fa-plus"
+                                        className={`bi bi-solid  ${button_title === "Back" ? "bi bi-arrow-left" : "bi bi-plus"
                                             } `}
                                     ></i>{" "}
                                     {button_title}
@@ -79,10 +79,11 @@ const Content = ({
                             )}
                             {backForword && (
                                 <button
-                                    onClick={() => window.history.back()} // Handle back button click
+                                    onClick={() => window.history.back()} 
                                     className="btn btn-primary float-lg-end ms-3"
+
                                 >
-                                    <i className={`fa-solid fa-arrow-left`}></i> Back
+                                    <i className={`bi bi-arrow-left`}></i> Back
                                 </button>
                             )}
                         </div>
