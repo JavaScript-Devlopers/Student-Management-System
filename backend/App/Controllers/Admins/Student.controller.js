@@ -31,10 +31,10 @@ class Auth {
             // const findRoleNumber = await Student_model.countDocuments({ Class_id, section });
             // const rollNumber = findRoleNumber + 1;
 
-            const normalizedEnrolmentNumber = UserName.toLowerCase().trim();
-            const existingEnrolmentNumber = await Student_model.findOne({ UserName: normalizedEnrolmentNumber });
+            const normalizedEnrolmentNumber = Enrolment_Number.toLowerCase().trim();
+            const existingEnrolmentNumber = await Student_model.findOne({ Enrolment_Number: normalizedEnrolmentNumber });
             if (existingEnrolmentNumber) {
-                return res.json({ status: false, msg: "Username already exists", data: [] });
+                return res.json({ status: false, msg: "Enrolment Number already exists", data: [] });
             }
 
             const salt = await bcrypt.genSalt(10);
