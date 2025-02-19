@@ -3,6 +3,7 @@ import Datatable from '../../../Components/ReusableTable'
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AddFrom from "../../../Components/ReusableFrom";
+import Content from "../../../ExtraComponent/Content/Contents";
 
 const Dashboard = () => {
 
@@ -176,24 +177,30 @@ const Dashboard = () => {
 
     return (
         <>
-            <div className="pagetitle">
-                <h1>Dashboard</h1>
-                <div className="d-flex justify-content-end">
-                    <button className="btn btn-primary">Add Student</button>
+            <Content
+                Page_title="Add Student"
+                button_status={false}
+                backbutton_status={true}
+                backForword={true}
+            >
+                <div className="pagetitle">
+                    <h1>Dashboard</h1>
+                    <div className="d-flex justify-content-end">
+                        <button className="btn btn-primary">Add Student</button>
+                    </div>
+                    <AddFrom
+                        fields={fields.filter(
+                            (fields) => !fields.showWhen || fields.showWhen(formik.values)
+                        )}
+                        page_title="Add Employee"
+                        hide_cancle_btn={true}
+                        hide_submit_btn={true}
+                        formik={formik}
+
+                    />
+
                 </div>
-                <AddFrom
-                    fields={fields.filter(
-                        (fields) => !fields.showWhen || fields.showWhen(formik.values)
-                    )}
-                    page_title="Add Employee"
-                    hide_cancle_btn={true}
-                    hide_submit_btn={true}
-                    formik={formik}
-
-                />
-
-            </div>
-
+            </Content>
 
 
         </>
