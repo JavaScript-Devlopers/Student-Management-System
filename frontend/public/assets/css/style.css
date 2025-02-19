@@ -1227,3 +1227,8 @@ h6 {
   margin-top: 1px;
 }
 
+.sidebar-horizontal-container .content,
+.sidebar-vertical-container .content {
+  padding-top: 90px;
+  height: 100vh;
+}
