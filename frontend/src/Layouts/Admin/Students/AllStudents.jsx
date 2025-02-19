@@ -128,10 +128,11 @@ const Dashboard = () => {
     },
   ];
 
+
   return (
     <>
       <div className="pagetitle">
-        <h1>Dashboard</h1>
+        <h1>All Student</h1>
         <div className="d-flex justify-content-end">
           <button className="btn btn-primary" onClick={()=>navigate('/admin/add-students')}>Add Student</button>
         </div>
