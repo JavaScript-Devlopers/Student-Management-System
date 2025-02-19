@@ -4,6 +4,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import AddFrom from "../../../Components/ReusableFrom";
 import Content from "../../../ExtraComponent/Content/Contents";
+import { AddStudent } from "../../../Services/admin/Student";
+import Swal from "sweetalert2";
 
 const Dashboard = () => {
 
@@ -12,7 +14,7 @@ const Dashboard = () => {
     const [dashboardData, setDashboardData] = useState({});
 
 
-   
+
     const formik = useFormik({
         initialValues: {
             FullName: "",
@@ -25,7 +27,6 @@ const Dashboard = () => {
             DOB: "",
             Address: "",
             subject: "",
-            ParentId: "",
             Role: "",
             Alternate_PhoneNo: "",
             FatherName: "",
@@ -34,36 +35,123 @@ const Dashboard = () => {
             section: "",
             District: "",
             State: "",
-            
+
         },
-        validationSchema: Yup.object({
-            FullName: Yup.string().required("Required"),
-            Email: Yup.string().required("Required"),
-            Student_PhoneNo: Yup.string().required("Required"),
-            Password: Yup.string().required("Required"),
-            Enrolment_Number: Yup.string().required("Required"),
-            Class_id: Yup.string().required("Required"),
-            Gender: Yup.string().required("Required"),
-            DOB: Yup.string().required("Required"),
-            Address: Yup.string().required("Required"),
-            subject: Yup.string().required("Required"),
-            ParentId: Yup.string().required("Required"),
-            Role: Yup.string().required("Required"),
-            Alternate_PhoneNo: Yup.string().required("Required"),
-            FatherName: Yup.string().required("Required"),
-            Mother_Name: Yup.string().required("Required"),
-            PhoneNo: Yup.string().required("Required"),
-            section: Yup.string().required("Required"),
-            District: Yup.string().required("Required"),
-            State: Yup.string().required("Required"),
+        validate : (values) => {
+            const errors = {};
+            if (!values.FullName) {
+                errors.FullName = "Required";
+            }
+            if (!values.Email) {
+                errors.Email = "Required";
+            }
+            if (!values.Student_PhoneNo) {
+                errors.Student_PhoneNo = "Required";
+            }
+            if (!values.Password) {
+
+                errors.Password = "Required";
+            }
+            if (!values.Enrolment_Number) {
+                errors.Enrolment_Number = "Required";
+            }
+            if (!values.Class_id) {
+                errors.Class_id = "Required";
+            }
+
+
+            if (!values.Gender) {
+                errors.Gender = "Required";
+            }
+            if (!values.DOB) {
+                errors.DOB = "Required";
+            }
+            if (!values.Address) {
+                errors.Address = "Required";
+            }
+            if (!values.subject) {
+                errors.subject = "Required";
+            }
           
-        }),
+            
+           
+            if (!values.FatherName) {
+                errors.FatherName = "Required";
+            }
+            if (!values.Mother_Name) {
+                errors.Mother_Name = "Required";
+            }
+            if (!values.PhoneNo) {
+                errors.PhoneNo = "Required";
+            }
+            if (!values.section) {
+                errors.section = "Required";
+            }
+            if (!values.District) {
+                errors.District = "Required";
+            }
+            if (!values.State) {
+                errors.State = "Required";
+            }
+            console.log("errors", errors);
+            return errors;
+        },
+           
+        onSubmit: async (values) => {
+            const req = {
+                FullName: values.FullName,
+                Email: values.Email,
+                Student_PhoneNo: values.Student_PhoneNo,
+                Password: values.Password,
+                Enrolment_Number: values.Enrolment_Number,
+                Class_id: values.Class_id,
+                Gender: values.Gender,
+                DOB: values.DOB,
+                Address: values.Address,
+                subject: values.subject,
+                Role: values.Role,
+                Alternate_PhoneNo: values.Alternate_PhoneNo,
+                FatherName: values.FatherName,
+                Mother_Name: values.Mother_Name,
+                PhoneNo: values.PhoneNo,
+                section: values.section,
+                District: values.District,
+                State: values.State,
+            };
+
+            console.log("ss", req);
+            await AddStudent(req)
+                .then((res) => {
+                    if (res.status) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Student Added Successfully",
+                        });
+                        
+                        formik.resetForm();
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Something went wrong",
+                        });
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+
+                });
+
+
+
+        }
 
     });
 
-     
+
     const fields = [
-        { 
+        {
             name: "FullName",
             label: "Student Name",
             type: "text",
@@ -125,10 +213,10 @@ const Dashboard = () => {
             disable: false,
         },
         {
-            name : "Class_id",
-            label : "Class",
-            type : "select",
-            options : [
+            name: "Class_id",
+            label: "Class",
+            type: "select",
+            options: [
                 { value: "1", label: "1" },
                 { value: "2", label: "2" },
                 { value: "3", label: "3" },
@@ -147,10 +235,10 @@ const Dashboard = () => {
             disable: false,
         },
         {
-            name : "section",
-            label : "Section",
-            type : "select",
-            options : [
+            name: "section",
+            label: "Section",
+            type: "select",
+            options: [
                 { value: "A", label: "A" },
                 { value: "B", label: "B" },
                 { value: "C", label: "C" },
@@ -166,7 +254,7 @@ const Dashboard = () => {
             label: "Address",
             type: "text",
             label_size: 12,
-            col_size: 12,
+            col_size: 6,
             disable: false,
         },
         {
@@ -202,41 +290,41 @@ const Dashboard = () => {
             disable: false,
         },
         {
-            name : "FatherName",
-            label : "Father Name",
-            type : "text",
-            label_size: 12,
-            col_size: 6,
-            disable: false,
-        
-        },
-        {
-            name : "Mother_Name",
-            label : "Mother Name",
-            type : "text",
-            label_size: 12,
-            col_size: 6,
-            disable: false,
-        },
-        {
-            name : "PhoneNo",
-            label : "Father Phone number",
-            type : "text",
-            label_size: 12,
-            col_size: 6,
-            disable: false,
-        },
-        {
-            name : "AlternatePhoneNo",
-            label : "Alternate Phone number",
-            type : "text",
+            name: "FatherName",
+            label: "Father Name",
+            type: "text",
             label_size: 12,
             col_size: 6,
             disable: false,
 
         },
-         
-       
+        {
+            name: "Mother_Name",
+            label: "Mother Name",
+            type: "text",
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+        },
+        {
+            name: "PhoneNo",
+            label: "Father Phone number",
+            type: "text",
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+        },
+        {
+            name: "AlternatePhoneNo",
+            label: "Alternate Phone number",
+            type: "text",
+            label_size: 12,
+            col_size: 6,
+            disable: false,
+
+        },
+
+
     ];
 
 
@@ -250,14 +338,14 @@ const Dashboard = () => {
                 backForword={true}
             >
                 <div className="mt-5">
-                  
+
                     <AddFrom
                         fields={fields.filter(
                             (fields) => !fields.showWhen || fields.showWhen(formik.values)
                         )}
-                        page_title="Add Employee"
-                        hide_cancle_btn={true}
-                        hide_submit_btn={true}
+                        btn_name="Add Student"
+                        hide_cancle_btn={false}
+                        hide_submit_btn={false}
                         formik={formik}
 
                     />
