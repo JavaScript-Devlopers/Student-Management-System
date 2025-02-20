@@ -3,7 +3,7 @@ import Datatable from '../../../Components/ReusableTable'
 import { useNavigate } from "react-router-dom";
 import Content from "../../../ExtraComponent/Content/Contents";
 import { getAllStudent } from "../../../Services/admin/Student";
-import { SquarePen, Trash2 } from 'lucide-react';
+import { SquarePen, Trash2 , Eye, View  } from 'lucide-react';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [selectClass, setSelectClass] = useState("");
   const [selectSection, setSelectSection] = useState("");
 
+  console.log("allStudnets", allStudnets);
 
   useEffect(() => {
     getStudents();
@@ -19,7 +20,7 @@ const Dashboard = () => {
 
   const getStudents = async () => {
     try {
-      const req = { classname: selectClass, section: selectSection }
+      const req = { classname: "67b770b19cc886943cbe7d3b", section: "A" }
       await getAllStudent(req).then((res) => {
         if (res.status) {
           setAllStudnets(res.data);
@@ -38,119 +39,65 @@ const Dashboard = () => {
   }
 
 
-  const data = [
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-    {
-      username: "John Doe",
-      fullname: "John Doe",
-      email: "",
-      phone: "1234567890",
-      status: "Active",
-    },
-  ]
+
 
   const columns = [
     {
-      name: "User Name",
-      selector: (row) => <div title={row?.username || ""}>
-        {row.username || ""}
+      name: "Student Name",
+      selector: (row) => <div title={row?.FullName || ""}>
+        {row.FullName || ""}
       </div>,
       sortable: true,
       width: '15%',
     },
     {
-      name: "Full Name",
-      selector: (row) => <div title={row?.fullname || ""}>
-        {row.fullname || ""}
+      name: "Student Phone Number",
+      selector: (row) => <div title={row?.Student_PhoneNo || ""}>
+        {row.Student_PhoneNo || ""}
       </div>,
       sortable: true,
-      width: '20%',
+      width: '15%',
     },
    
     {
-      name: "Phone",
-      selector: (row) => <div title={row?.phone || ""}>
-        {row.phone || ""}
+      name: "Email",
+      selector: (row) => <div title={row?.Email || ""}>
+        {row.Email || ""}
       </div>,
       sortable: true,
       width: '15%',
     },
 
     {
-      name: "Status",
-      selector: (row) => <div title={row?.status || ""}>
-        {row.status || ""}
+      name: "Enrolment Number",
+      selector: (row) => <div title={row?.Enrolment_Number || ""}>
+        {row.Enrolment_Number || ""}
       </div>,
       sortable: true,
       width: '15%',
     },
     {
-      name: "Last Login",
-      selector: (row) => <div title={row?.lastLogin || ""}>
-        {row.lastLogin || ""}
+      name: "Gender",
+      selector: (row) => (
+        <div title={row?.Gender === 0 ? "Male" : row?.Gender === 1 ? "Female" : "Other"}>
+          {row?.Gender === 0 ? "Male" : row?.Gender === 1 ? "Female" : "Other"}
+        </div>
+      ),
+      sortable: true,
+      width: "15%",
+    },
+    {
+      name : "View",
+      selector : (row) => <div title="View">
+        <Eye />  
       </div>,
       sortable: true,
-      width: '15%',
+      width: '10%',
     },
     {
       name: "Action",
       selector: (row) => <div title="Action">
-        <SquarePen />
+        <SquarePen  onClick={()=>navigate("/admin/edit-students" , {state : {row}})}/>
         <Trash2 />
       </div>,
       sortable: true,
@@ -201,7 +148,7 @@ const Dashboard = () => {
           </div>
           <Datatable
             columns={columns}
-            data={data}
+            data={allStudnets}
             filter={false}
           />
         </div>

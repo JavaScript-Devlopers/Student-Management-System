@@ -44,3 +44,17 @@ export async function getAllStudent(data , token) {
 
 }
 
+export async function getAllClass(data , token) {
+    try {
+        const res = await axios.get(`${Config.base_url}getAllclass`, data, {
+            data: {},
+        })
+        return await res?.data;
+    }
+    catch (err) {
+        return await err;
+
+    }
+
+}
+

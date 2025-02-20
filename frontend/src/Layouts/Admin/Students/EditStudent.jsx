@@ -4,21 +4,53 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import AddFrom from "../../../Components/ReusableFrom";
 import Content from "../../../ExtraComponent/Content/Contents";
-import { AddStudent , getAllSubject , getAllClass } from "../../../Services/admin/Student";
+import { AddStudent , getAllSubject } from "../../../Services/admin/Student";
 import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {
+    const location = useLocation();
 
+    console.log("location", location.state.row);
+
+    const [students, setStudents] = useState([]);
     const [allStudents, setAllStudents] = useState([]);
-    const [allClass, setAllClass] = useState([]);
+    const [dashboardData, setDashboardData] = useState({});
 
-
-    console.log("allClass", allClass);
 
     useEffect(() => {
         getSubject();
-        getClass();
     }, []);
+
+  
+
+    useEffect(() => {
+        if (location.state.row) {
+           formik.setValues({
+                FullName: location.state.row.FullName,
+                Email: location.state.row.Email,
+                Student_PhoneNo: location.state.row.Student_PhoneNo,
+                Password: location.state.row.Password,
+                Enrolment_Number: location.state.row.Enrolment_Number,
+                Class_id: location.state.row.Class_id,
+                DOB: location.state.row.DOB.split("T")[0],
+                Gender: location.state.row.Gender,
+                Address: location.state.row.Address,
+                subject: location.state.row.subject,
+                Role: location.state.row.Role,
+                Alternate_PhoneNo: location.state.row.Parent.Alternate_PhoneNo,
+                FatherName: location.state.row.Parent.FatherName,
+                Mother_Name: location.state.row.Parent.Mother_Name,
+                PhoneNo: location.state.row.Parent.PhoneNo,
+                section: location.state.row.section,
+                District: location.state.row.District,
+                State: location.state.row.State,
+            });
+
+
+        }
+    }, [location.state.row]);
+
 
 
     const formik = useFormik({
@@ -105,10 +137,11 @@ const Dashboard = () => {
 
         onSubmit: async (values) => {
             const req = {
+                id : location.state.row._id,
                 FullName: values.FullName,
                 Email: values.Email,
                 Student_PhoneNo: values.Student_PhoneNo,
-                Password: values.Password,
+                Password: "",
                 Enrolment_Number: values.Enrolment_Number,
                 // Class_id: values.Class_id,
                 Class_id: "67b069363192978d129230d8",
@@ -149,11 +182,7 @@ const Dashboard = () => {
                     console.log(err);
 
                 });
-
-
-
         }
-
     });
 
 
@@ -182,14 +211,14 @@ const Dashboard = () => {
             col_size: 6,
             disable: false,
         },
-        {
-            name: "Password",
-            label: "Password",
-            type: "password",
-            label_size: 12,
-            col_size: 6,
-            disable: false,
-        },
+        // {
+        //     name: "Password",
+        //     label: "Password",
+        //     type: "password",
+        //     label_size: 12,
+        //     col_size: 6,
+        //     disable: false,
+        // },
         {
             name: "Enrolment_Number",
             label: "Roll number",
@@ -223,10 +252,20 @@ const Dashboard = () => {
             name: "Class_id",
             label: "Class",
             type: "select",
-            options: allClass.map((classs) => ({
-                value: classs._id,
-                label: classs.className,
-            })),
+            options: [
+                { value: "1", label: "1" },
+                { value: "2", label: "2" },
+                { value: "3", label: "3" },
+                { value: "4", label: "4" },
+                { value: "5", label: "5" },
+                { value: "6", label: "6" },
+                { value: "7", label: "7" },
+                { value: "8", label: "8" },
+                { value: "9", label: "9" },
+                { value: "10", label: "10" },
+                { value: "11", label: "11" },
+                { value: "12", label: "12" },
+            ],
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -332,27 +371,10 @@ const Dashboard = () => {
             });
     };
 
-    const getClass = async () => {
-        const res = await getAllClass()
-            .then((res) => {
-                if (res.status) {
-                    setAllClass(res.data);
-                }
-                else {
-                    setAllClass([]);
-                }
-            })
-            .catch((err) => {
-                console.log(err);   
-            }
-        );
-    }
-
-
     return (
         <>
             <Content
-                Page_title="Add Student"
+                Page_title="Edit Student"
                 button_status={false}
                 backbutton_status={true}
                 backForword={true}
@@ -363,7 +385,7 @@ const Dashboard = () => {
                         fields={fields.filter(
                             (fields) => !fields.showWhen || fields.showWhen(formik.values)
                         )}
-                        btn_name="Add Student"
+                        btn_name="Edit Student"
                         hide_cancle_btn={false}
                         hide_submit_btn={false}
                         formik={formik}

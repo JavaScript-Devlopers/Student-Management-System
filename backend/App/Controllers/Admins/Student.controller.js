@@ -1,5 +1,6 @@
 "use strict";
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 const bcrypt = require("bcrypt");
 const db = require('../../Models');
 const Student_model = db.Student_model;
@@ -173,6 +174,9 @@ class Auth {
         try {
             const { classname, section } = req.body;
 
+            console.log("classname", classname);
+            console.log("section", section);
+
             if (!classname) {
                 return res.send({ status: false, msg: "Class Name is required", data: [] });
             }
@@ -182,7 +186,10 @@ class Auth {
 
             const studentDetails = await Student_model.aggregate([
                 {
-                    $match: { className: classname, section: section }
+                    $match: { 
+                        Class_id: new ObjectId(classname), // Convert classname to ObjectId
+                        section: section 
+                    }
                 },
                 {
                     $lookup: {
@@ -199,13 +206,14 @@ class Auth {
                     }
                 },
                 {
-                    $sort: { name: 1 }
+                    $sort: { createdAt: -1 }
                 }
             ]);
 
             res.send({ status: true, msg: "Student Details", data: studentDetails });
 
         } catch (err) {
+            console.log("Error getting student details:", err);
             res.send({ status: false, msg: "Internal Server Error", data: [] });
         }
 
