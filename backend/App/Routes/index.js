@@ -6,5 +6,6 @@ module.exports = function (app) {
     app.use(require("./Admin/Parent.routes"));
     app.use(require('./Admin/Student.routes'))
     app.use(require('./Admin/Subject.routes'))
+    app.use(require('./Admin/Class.routes'))
 
 };

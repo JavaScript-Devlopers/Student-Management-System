@@ -49,7 +49,8 @@ class Auth {
                 Email,
                 Password: hashedPassword,
                 otp: Password,
-                Role
+                Role,
+                PhoneNo
             });
 
 
@@ -163,7 +164,7 @@ class Auth {
 
         } catch (error) {
             console.error("Error updating student:", error);
-            return res.status(500).json({ status: false, msg: "Server Error", data: [] });
+            return res.json({ status: false, msg: "Server Error", data: [] });
         }
     }
 
@@ -171,45 +172,47 @@ class Auth {
     async getAllStudent(req, res) {
         try {
             const { classname, section } = req.body;
-    
+
             if (!classname) {
                 return res.send({ status: false, msg: "Class Name is required", data: [] });
             }
             if (!section) {
                 return res.send({ status: false, msg: "Section Name is required", data: [] });
             }
-    
+
             const studentDetails = await Student_model.aggregate([
                 {
-                    $match: { className: classname, section: section }  
+                    $match: { className: classname, section: section }
                 },
                 {
                     $lookup: {
-                        from: "parents",  
+                        from: "parents",
                         localField: "ParentId",
                         foreignField: "_id",
                         as: "Parent"
                     }
                 },
                 {
-                    $unwind: { 
-                        path: "$Parent", 
-                        preserveNullAndEmptyArrays: true  
+                    $unwind: {
+                        path: "$Parent",
+                        preserveNullAndEmptyArrays: true
                     }
                 },
                 {
-                    $sort: { name: 1 }  
+                    $sort: { name: 1 }
                 }
             ]);
-    
+
             res.send({ status: true, msg: "Student Details", data: studentDetails });
-    
+
         } catch (err) {
-            console.error("Error:", err);
-            res.status(500).send({ status: false, msg: "Internal Server Error", data: [] });
+            res.send({ status: false, msg: "Internal Server Error", data: [] });
         }
+
+
+
     }
-    
+
 }
 
 

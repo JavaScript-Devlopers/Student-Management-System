@@ -17,23 +17,18 @@ const ParentSchema = new Schema({
     Parent_Email: {
         type: String,
         trim: true,
-        unique: true,
     },
     PhoneNo: {
-        type: String,
+        type: Number,
         trim: true,
         required: true,
-        max: 10,
-        min: 10,
-        unique: true,
+
+
     },
     Alternate_PhoneNo: {
-        type: String,
+        type: Number,
         trim: true,
         required: true,
-        max: 10,
-        min: 10,
-        unique: true,
         default: null
     },
     User_id: {

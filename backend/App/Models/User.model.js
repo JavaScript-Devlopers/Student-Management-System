@@ -18,7 +18,6 @@ const userModel = Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true,
         default: null
     },
     Password: {
@@ -26,6 +25,11 @@ const userModel = Schema({
         required: true,
         trim: true,
         default: null
+    },
+    PhoneNo: {
+        type: Number,
+        trim: true,
+
     },
     otp: {
         type: String,

@@ -14,7 +14,6 @@ class Subjects {
             if (isExits) {
                 return res.send({ status: false, msg: "Subject code is already Exits", data: [] })
             }
-
             const newSubject = new Subject_model({
                 Subject_Name,
                 Subject_Code,
@@ -24,8 +23,6 @@ class Subjects {
             });
 
             await newSubject.save();
-
-
             return res.json({ status: true, msg: "Subject Added Successfully", data: newSubject })
 
         } catch (error) {
