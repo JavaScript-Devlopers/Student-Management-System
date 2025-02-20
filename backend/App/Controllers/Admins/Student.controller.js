@@ -221,6 +221,27 @@ class Auth {
 
     }
 
+
+    async deleteStudent(req, res) {
+        try {
+            const { id } = req.body;
+
+            const result = await Student_model.findByIdAndDelete(id);
+
+            if (!result) {
+                return res.json({ status: false, msg: "Student Not Found", data: [] });
+            }
+
+            return res.json({ status: true, msg: "Student Deleted Successfully", data: [] });
+
+        } catch (error) {
+            return res.json({ status: false, msg: "Internal Server Error", data: [] });
+        }
+    };
+
+
+
+
 }
 
 

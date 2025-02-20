@@ -71,8 +71,21 @@ class ClassName {
     }
 
     async deleteClass(req, res) {
+        try {
+            const { id } = req.body;
 
-    }
+            const result = await class_model.findByIdAndDelete(id);
+
+            if (!result) {
+                return res.json({ status: false, msg: "Class Not Found", data: [] });
+            }
+
+            return res.json({ status: true, msg: "Class Deleted Successfully", data: [] });
+
+        } catch (error) {
+            return res.json({ status: false, msg: "Internal Server Error", data: [] });
+        }
+    };
 
 }
 
