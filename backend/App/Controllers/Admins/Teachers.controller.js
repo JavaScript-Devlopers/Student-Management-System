@@ -9,10 +9,8 @@ class Teachers {
 
     async addTeachers(req, res) {
         try {
-            const { FullName, Email, PhoneNo, Password, Gender, Address, Subject, Role } = req.body
-
             
-
+            const { FullName, Email, PhoneNo, Password, Gender, Address, Subject, Role } = req.body
             if (!FullName) {
                 return res.json({ status: false, msg: "Full Name is required!", data: [] });
             }
