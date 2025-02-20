@@ -93,9 +93,6 @@ class Auth {
         }
     }
 
-
-
-
     async updateStudent(req, res) {
         try {
             const { _id } = req.body;
@@ -173,28 +170,46 @@ class Auth {
 
     async getAllStudent(req, res) {
         try {
-            const { classname, section } = req.body
-            if (classname == undefined || classname == null || classname == "") {
-                res.send({ status: false, msg: "Class Name is require", data: [] })
+            const { classname, section } = req.body;
+    
+            if (!classname) {
+                return res.send({ status: false, msg: "Class Name is required", data: [] });
             }
-
-            else if (section == undefined || section == null || section == "") {
-                res.send({ status: false, msg: "section name is require", data: [] })
+            if (!section) {
+                return res.send({ status: false, msg: "Section Name is required", data: [] });
             }
-
-            const allStudents = await student_db.find()
-
-            console
-
+    
+            const studentDetails = await Student_model.aggregate([
+                {
+                    $match: { className: classname, section: section }  
+                },
+                {
+                    $lookup: {
+                        from: "parents",  
+                        localField: "ParentId",
+                        foreignField: "_id",
+                        as: "Parent"
+                    }
+                },
+                {
+                    $unwind: { 
+                        path: "$Parent", 
+                        preserveNullAndEmptyArrays: true  
+                    }
+                },
+                {
+                    $sort: { name: 1 }  
+                }
+            ]);
+    
+            res.send({ status: true, msg: "Student Details", data: studentDetails });
+    
+        } catch (err) {
+            console.error("Error:", err);
+            res.status(500).send({ status: false, msg: "Internal Server Error", data: [] });
         }
-        catch (err) {
-           
-            res.send({ status: true, msg: "internal server error", data: [] })
-
-        }
-
-
     }
+    
 }
 
 

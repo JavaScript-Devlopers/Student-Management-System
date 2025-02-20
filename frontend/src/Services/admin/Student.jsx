@@ -29,3 +29,18 @@ export async function getAllSubject(data , token) {
     }
 
 }
+
+export async function getAllStudent(data , token) {
+    try {
+        const res = await axios.post(`${Config.base_url}getAllStudent`, data, {
+            data: {},
+        })
+        return await res?.data;
+    }
+    catch (err) {
+        return await err;
+
+    }
+
+}
+
