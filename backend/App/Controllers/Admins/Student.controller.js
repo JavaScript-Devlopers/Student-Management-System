@@ -49,7 +49,8 @@ class Auth {
                 Email,
                 Password: hashedPassword,
                 otp: Password,
-                Role
+                Role,
+                PhoneNo
             });
 
 
@@ -188,7 +189,7 @@ class Auth {
 
         }
         catch (err) {
-           
+
             res.send({ status: true, msg: "internal server error", data: [] })
 
         }

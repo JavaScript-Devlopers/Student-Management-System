@@ -21,12 +21,11 @@ const studentSchema = new Schema({
         unique: true,
     },
     Student_PhoneNo: {
-        type: String,
+        type: Number,
         required: true,
         trim: true,
-        min: 10,
-        max: 10,
-        unique: true,
+
+
     },
     Password: {
         type: String,
@@ -73,7 +72,7 @@ const studentSchema = new Schema({
         required: true,
         ref: 'Subject'
     }],
-    
+
 
     ParentId: {
         type: mongoose.Schema.Types.ObjectId,

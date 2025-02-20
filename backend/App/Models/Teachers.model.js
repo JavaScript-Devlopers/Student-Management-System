@@ -19,11 +19,9 @@ const Teachersdata = Schema({
         default: null
     },
     PhoneNo: {
-        type: String,
+        type: Number,
         required: true,
         trim: true,
-        min: 10,
-        max: 10,
         unique: true,
         default: null
     },
