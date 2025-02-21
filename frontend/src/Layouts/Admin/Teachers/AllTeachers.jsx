@@ -52,15 +52,6 @@ const AllTeachers = () => {
             width: '15%',
         },
         {
-            name: "Phone Number",
-            selector: (row) => <div title={row?.Student_PhoneNo || ""}>
-                {row.Student_PhoneNo || ""}
-            </div>,
-            sortable: true,
-            width: '15%',
-        },
-
-        {
             name: "Email",
             selector: (row) => <div title={row?.Email || ""}>
                 {row.Email || ""}
@@ -70,13 +61,14 @@ const AllTeachers = () => {
         },
 
         {
-            name: "Enrolment Number",
-            selector: (row) => <div title={row?.Enrolment_Number || ""}>
-                {row.Enrolment_Number || ""}
+            name: "PhoneNo",
+            selector: (row) => <div title={row?.PhoneNo || ""}>
+                {row.PhoneNo || ""}
             </div>,
             sortable: true,
             width: '15%',
         },
+
         {
             name: "Gender",
             selector: (row) => (
@@ -121,19 +113,10 @@ const AllTeachers = () => {
                     <div className="mt-3 row">
                         <div className="col-lg-3">
                             <label>Search</label>
-                            <input type="text" className="form-control" placeholder="search hear..." />
-                        </div>
-                        <div className="position-relative">
-                            <input
-                                type="text"
-                                className="form-control ps-5 radius-10"
-                                placeholder="Search Client"
+                            <input type="text" className="form-control" placeholder="search hear..."
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 value={searchInput}
                             />
-                            <span className="position-absolute top-50 product-show translate-middle-y">
-                                <i className="bx bx-search" />
-                            </span>
                         </div>
                         <div className="col-md-1">
                             <div className="refresh-icon mt-4">
