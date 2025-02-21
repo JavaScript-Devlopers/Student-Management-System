@@ -7,14 +7,14 @@ import Content from "../../../ExtraComponent/Content/Contents";
 import { AddTeachersdata } from "../../../Services/admin/Teachers";
 import Swal from "sweetalert2";
 import { getAllSubject } from "../../../Services/admin/Student";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 
 const AddTeacher = () => {
 
     const [allsubject, setAllSubject] = useState([]);
 
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         getSubject();
@@ -60,8 +60,6 @@ const AddTeacher = () => {
                 errors.Address = "Required";
             }
 
-
-            console.log("errors", errors);
             return errors;
         },
 
@@ -85,7 +83,7 @@ const AddTeacher = () => {
                             icon: "success",
                             title: "Teacher Added Successfully",
                         }), then(() => {
-                            Navigate("/admin/all-teachers")
+                            navigate("/admin/all-teachers")
                         })
 
                         formik.resetForm();
@@ -130,7 +128,7 @@ const AddTeacher = () => {
         {
             name: "PhoneNo",
             label: "Phone Number",
-            type: "text",
+            type: "number",
             label_size: 12,
             col_size: 6,
             disable: false,

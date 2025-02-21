@@ -2,69 +2,43 @@ import React, { useState, useEffect } from "react";
 import Datatable from '../../../Components/ReusableTable'
 import { useNavigate } from "react-router-dom";
 import Content from "../../../ExtraComponent/Content/Contents";
-// import { AddTeachersdata } from "../../../Services/admin/Teachers";
+import { getAllTeacherdata } from "../../../Services/admin/Teachers";
 import { SquarePen, Trash2, Eye, View, RefreshCcw } from 'lucide-react';
 
 const AllTeachers = () => {
 
 
     const navigate = useNavigate();
-    const [allStudnets, setAllStudnets] = useState([]);
-    const [selectClass, setSelectClass] = useState("");
-    const [selectSection, setSelectSection] = useState("");
-    const [allClass, setAllClass] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
+    const [getallteacher, setGetallteacher] = useState([]);
 
 
-    // useEffect(() => {
-    //     getClass();
-    // }, []);
 
-    // useEffect(() => {
-    //     getStudents();
-    // }
-    //     , [selectClass, selectSection]);
+    useEffect(() => {
+        getTeacher();
+    }, [searchInput]);
 
 
-    // const getStudents = async () => {
-    //     try {
-    //         const req = { classname: selectClass, section: selectSection }
-    //         await getAllStudent(req).then((res) => {
-    //             if (res.status) {
-    //                 setAllStudnets(res.data);
-    //             }
-    //             else {
-    //                 setAllStudnets([]);
-    //             }
-    //         })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //             });
-    //     }
-    //     catch (error) {
-    //         console.log(error);
-    //     }
-    // }
 
-    // const getClass = async () => {
-    //     const res = await getAllClass()
-    //         .then((res) => {
-    //             if (res.status) {
-    //                 setAllClass(res.data);
-    //             }
-    //             else {
-    //                 setAllClass([]);
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         }
-    //         );
-    // }
+    const getTeacher = async () => {
+        try {
+            const req = { search: searchInput };
+            const res = await getAllTeacherdata(req);
+            if (res.status) {
+                setGetallteacher(res.data);
+            } else {
+                setGetallteacher([]);
+            }
+        } catch (error) {
+            console.log("Error fetching teachers:", error);
+        }
+    };
+
 
 
     const resethandle = () => {
-        setSelectClass("")
-        setSelectSection("")
+        setSearchInput("")
+        getTeacher()
     };
 
 
@@ -78,15 +52,6 @@ const AllTeachers = () => {
             width: '15%',
         },
         {
-            name: "Phone Number",
-            selector: (row) => <div title={row?.Student_PhoneNo || ""}>
-                {row.Student_PhoneNo || ""}
-            </div>,
-            sortable: true,
-            width: '15%',
-        },
-
-        {
             name: "Email",
             selector: (row) => <div title={row?.Email || ""}>
                 {row.Email || ""}
@@ -96,13 +61,14 @@ const AllTeachers = () => {
         },
 
         {
-            name: "Enrolment Number",
-            selector: (row) => <div title={row?.Enrolment_Number || ""}>
-                {row.Enrolment_Number || ""}
+            name: "PhoneNo",
+            selector: (row) => <div title={row?.PhoneNo || ""}>
+                {row.PhoneNo || ""}
             </div>,
             sortable: true,
             width: '15%',
         },
+
         {
             name: "Gender",
             selector: (row) => (
@@ -147,33 +113,11 @@ const AllTeachers = () => {
                     <div className="mt-3 row">
                         <div className="col-lg-3">
                             <label>Search</label>
-                            <input type="text" className="form-control" placeholder="search hear..." />
+                            <input type="text" className="form-control" placeholder="search hear..."
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                value={searchInput}
+                            />
                         </div>
-                        {/* <div className="col-lg-3">
-                            <label>select class</label>
-                            <select className="form-control" onChange={(e) => setSelectClass(e.target.value)} value={selectClass}>
-                                <option value={""}>Select Class</option>
-                                {allClass.map((item, index) => {
-
-                                    return (
-                                        <option key={index} value={item._id}>{item.className}</option>
-
-                                    );
-                                })}
-                            </select>
-                        </div> */}
-                        {/* <div className="col-lg-3">
-                            <label>select section</label>
-                            <select className="form-control" onChange={(e) => setSelectSection(e.target.value)} value={selectSection}>
-                                <option value={""}>Select</option>
-                                <option value={"A"}>A</option>
-                                <option value={"B"}>B</option>
-                                <option value={"C"}>C</option>
-                                <option value={"D"}>D</option>
-                                <option value={"E"}>E</option>
-                            </select>
-
-                        </div> */}
                         <div className="col-md-1">
                             <div className="refresh-icon mt-4">
                                 <RefreshCcw onClick={resethandle} />
@@ -182,7 +126,7 @@ const AllTeachers = () => {
                     </div>
                     <Datatable
                         columns={columns}
-                        data={allStudnets}
+                        data={getallteacher}
                         filter={false}
                     />
                 </div>

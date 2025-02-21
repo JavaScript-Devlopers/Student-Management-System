@@ -6,6 +6,7 @@ import AddFrom from "../../../Components/ReusableFrom";
 import Content from "../../../ExtraComponent/Content/Contents";
 import { AddStudent, getAllSubject, getAllClass } from "../../../Services/admin/Student";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
 
@@ -13,7 +14,7 @@ const Dashboard = () => {
     const [allClass, setAllClass] = useState([]);
 
 
-    console.log("allClass", allClass);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getSubject();
@@ -125,13 +126,14 @@ const Dashboard = () => {
                 State: values.State,
             };
 
-            console.log("ss", req);
             await AddStudent(req)
                 .then((res) => {
                     if (res.status) {
                         Swal.fire({
                             icon: "success",
                             title: "Student Added Successfully",
+                        }).then(() => {
+                            navigate("/admin/all-students")
                         });
 
                         formik.resetForm();
@@ -176,7 +178,7 @@ const Dashboard = () => {
         {
             name: "Student_PhoneNo",
             label: "Student Phone number",
-            type: "text",
+            type: "number",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -301,7 +303,7 @@ const Dashboard = () => {
         {
             name: "PhoneNo",
             label: "Father Phone number",
-            type: "text",
+            type: "number",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -309,7 +311,7 @@ const Dashboard = () => {
         {
             name: "Alternate_PhoneNo",
             label: "Alternate Phone number",
-            type: "text",
+            type: "number",
             label_size: 12,
             col_size: 6,
             disable: false,
