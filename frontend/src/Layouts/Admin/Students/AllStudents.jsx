@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Datatable from '../../../Components/ReusableTable'
 import { useNavigate } from "react-router-dom";
 import Content from "../../../ExtraComponent/Content/Contents";
-import { getAllStudent , getAllClass } from "../../../Services/admin/Student";
-import { SquarePen, Trash2 , Eye, View  } from 'lucide-react';
+import { getAllStudent, getAllClass } from "../../../Services/admin/Student";
+import { SquarePen, Trash2, Eye, View, RefreshCcw } from 'lucide-react';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Dashboard = () => {
   useEffect(() => {
     getStudents();
   }
-  , [selectClass, selectSection]);  
+    , [selectClass, selectSection]);
 
 
   const getStudents = async () => {
@@ -43,22 +43,28 @@ const Dashboard = () => {
     }
   }
 
-     const getClass = async () => {
-          const res = await getAllClass()
-              .then((res) => {
-                  if (res.status) {
-                      setAllClass(res.data);
-                  }
-                  else {
-                      setAllClass([]);
-                  }
-              })
-              .catch((err) => {
-                  console.log(err);   
-              }
-          );
+  const getClass = async () => {
+    const res = await getAllClass()
+      .then((res) => {
+        if (res.status) {
+          setAllClass(res.data);
+        }
+        else {
+          setAllClass([]);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       }
+      );
+  }
 
+
+  const resethandle = () => {
+    setSelectClass("")
+    setSelectSection("")
+    getStudents()
+  };
 
 
   const columns = [
@@ -78,7 +84,7 @@ const Dashboard = () => {
       sortable: true,
       width: '15%',
     },
-   
+
     {
       name: "Email",
       selector: (row) => <div title={row?.Email || ""}>
@@ -107,9 +113,9 @@ const Dashboard = () => {
       width: "15%",
     },
     {
-      name : "View",
-      selector : (row) => <div title="View">
-        <Eye />  
+      name: "View",
+      selector: (row) => <div title="View">
+        <Eye />
       </div>,
       sortable: true,
       width: '10%',
@@ -117,7 +123,7 @@ const Dashboard = () => {
     {
       name: "Action",
       selector: (row) => <div title="Action">
-        <SquarePen  onClick={()=>navigate("/admin/edit-students" , {state : {row}})}/>
+        <SquarePen onClick={() => navigate("/admin/edit-students", { state: { row } })} />
         <Trash2 />
       </div>,
       sortable: true,
@@ -147,8 +153,10 @@ const Dashboard = () => {
               <select className="form-control" onChange={(e) => setSelectClass(e.target.value)} value={selectClass}>
                 <option value={""}>Select Class</option>
                 {allClass.map((item, index) => {
+
                   return (
                     <option key={index} value={item._id}>{item.className}</option>
+
                   );
                 })}
               </select>
@@ -156,6 +164,7 @@ const Dashboard = () => {
             <div className="col-lg-3">
               <label>select section</label>
               <select className="form-control" onChange={(e) => setSelectSection(e.target.value)} value={selectSection}>
+                <option value={""}>Select</option>
                 <option value={"A"}>A</option>
                 <option value={"B"}>B</option>
                 <option value={"C"}>C</option>
@@ -163,6 +172,11 @@ const Dashboard = () => {
                 <option value={"E"}>E</option>
               </select>
 
+            </div>
+            <div className="col-md-1">
+              <div className="refresh-icon mt-4">
+                <RefreshCcw onClick={resethandle} />
+              </div>
             </div>
           </div>
           <Datatable
