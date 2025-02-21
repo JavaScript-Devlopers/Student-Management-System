@@ -62,7 +62,25 @@ class Teachers {
             return res.json({ status: false, msg: "Server Error ", data: [] })
         }
     }
-    
+
+    async getAllteacher(req, res) {
+        try {
+            const search = req.query.search || "";
+            const teachers = await Teacher_model.find({
+                $or : [
+                    {FullName: { $regex: search, $options: "i" }},
+                    {Email: { $regex: search, $options: "i" }},
+                    {PhoneNo: { $regex: search, $options: "i" }},
+                ]
+            });
+
+            return res.json({ status: true, msg: "Filtered Teachers", data: teachers });
+        } catch (error) {
+            return res.json({ status: false, msg: "Server Error", data: [] });
+        }
+    }
+
+
 
 
 

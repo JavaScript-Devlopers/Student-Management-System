@@ -2,9 +2,11 @@
 
 const router = require("express").Router()
 
-const { Addteachers } = require("../../Controllers/Teachers/Teachers.controller")
+const { Addteachers , getAllteacher} = require("../../Controllers/Teachers/Teachers.controller")
 
 router.post('/Addteachers', Addteachers)
+router.post('/getAllteacher', getAllteacher)
+
 
 
 
