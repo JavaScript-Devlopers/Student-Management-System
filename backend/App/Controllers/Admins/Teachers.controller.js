@@ -99,10 +99,13 @@ class Teachers {
 
     }
 
+
+
+
+
     async getAllteacher(req, res) {
         try {
-            const { search } = req.body || "";
-
+            const search = req.body.search || "";
 
             const TeacherDetails = await Teacher_model.aggregate([
                 {
@@ -116,8 +119,17 @@ class Teachers {
                 {
                     $lookup: {
                         from: "subjects",
-                        localField: "Subject",
-                        foreignField: "_id",
+                        let: { subjectIds: "$Subject" },
+                        pipeline: [
+                            {
+                                $match: {
+                                    $expr: { $in: ["$_id", { $map: { input: "$$subjectIds", as: "id", in: { $toObjectId: "$$id" } } }] }
+                                }
+                            },
+                            {
+                                $project: { Subject_Name: 1, _id: 0 }
+                            }
+                        ],
                         as: "SubjectDetails"
                     }
                 },
@@ -131,20 +143,18 @@ class Teachers {
                         Qualification: 1,
                         Experience: 1,
                         JoiningDate: 1,
-                        "SubjectDetails.Subject_Name": 1,
-                        _id: 0
+                        SubjectDetails: "$SubjectDetails.Subject_Name" // Subject_Name की list दिखाने के लिए
                     }
                 }
             ]);
 
-
-
             return res.json({ status: true, msg: "Filtered Teachers", data: TeacherDetails });
         } catch (error) {
-            console.log("error", error)
+            console.log("error", error);
             return res.json({ status: false, msg: "Server Error", data: [] });
         }
     }
+
 
 
     async deleteTeacher(req, res) {
