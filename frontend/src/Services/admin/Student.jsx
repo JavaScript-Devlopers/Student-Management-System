@@ -58,3 +58,17 @@ export async function getAllClass(data , token) {
 
 }
 
+export async function UpdateStudent(data , token) {
+    try {
+        const res = await axios.post(`${Config.base_url}updateStudent`, data, {
+            data: {},
+        })
+        return await res?.data;
+    }
+    catch (err) {
+        return await err;
+
+    }
+
+}
+

@@ -4,23 +4,23 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import AddFrom from "../../../Components/ReusableFrom";
 import Content from "../../../ExtraComponent/Content/Contents";
-import { AddStudent , getAllSubject } from "../../../Services/admin/Student";
+import { UpdateStudent , getAllSubject , getAllClass } from "../../../Services/admin/Student";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 
 const Dashboard = () => {
     const location = useLocation();
-
-    console.log("location", location.state.row);
-
-    const [students, setStudents] = useState([]);
     const [allStudents, setAllStudents] = useState([]);
-    const [dashboardData, setDashboardData] = useState({});
+    const [allClass, setAllClass] = useState([]);
 
 
     useEffect(() => {
         getSubject();
+        getClass();
+
     }, []);
+
+     
 
   
 
@@ -137,14 +137,13 @@ const Dashboard = () => {
 
         onSubmit: async (values) => {
             const req = {
-                id : location.state.row._id,
+                _id : location.state.row._id,
                 FullName: values.FullName,
                 Email: values.Email,
                 Student_PhoneNo: values.Student_PhoneNo,
                 Password: "",
                 Enrolment_Number: values.Enrolment_Number,
-                // Class_id: values.Class_id,
-                Class_id: "67b069363192978d129230d8",
+                Class_id: values.Class_id,
                 Gender: values.Gender,
                 DOB: values.DOB,
                 Address: values.Address,
@@ -159,8 +158,7 @@ const Dashboard = () => {
                 State: values.State,
             };
 
-            console.log("ss", req);
-            await AddStudent(req)
+            await UpdateStudent(req)
                 .then((res) => {
                     if (res.status) {
                         Swal.fire({
@@ -252,20 +250,10 @@ const Dashboard = () => {
             name: "Class_id",
             label: "Class",
             type: "select",
-            options: [
-                { value: "1", label: "1" },
-                { value: "2", label: "2" },
-                { value: "3", label: "3" },
-                { value: "4", label: "4" },
-                { value: "5", label: "5" },
-                { value: "6", label: "6" },
-                { value: "7", label: "7" },
-                { value: "8", label: "8" },
-                { value: "9", label: "9" },
-                { value: "10", label: "10" },
-                { value: "11", label: "11" },
-                { value: "12", label: "12" },
-            ],
+            options: allClass.map((classs) => ({
+                value: classs._id,
+                label: classs.className,
+            })),
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -370,6 +358,22 @@ const Dashboard = () => {
                 console.log(err);
             });
     };
+
+        const getClass = async () => {
+              const res = await getAllClass()
+                  .then((res) => {
+                      if (res.status) {
+                          setAllClass(res.data);
+                      }
+                      else {
+                          setAllClass([]);
+                      }
+                  })
+                  .catch((err) => {
+                      console.log(err);   
+                  }
+              );
+          }
 
     return (
         <>

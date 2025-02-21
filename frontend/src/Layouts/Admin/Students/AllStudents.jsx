@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Datatable from '../../../Components/ReusableTable'
 import { useNavigate } from "react-router-dom";
 import Content from "../../../ExtraComponent/Content/Contents";
-import { getAllStudent } from "../../../Services/admin/Student";
+import { getAllStudent , getAllClass } from "../../../Services/admin/Student";
 import { SquarePen, Trash2 , Eye, View  } from 'lucide-react';
 
 const Dashboard = () => {
@@ -10,17 +10,22 @@ const Dashboard = () => {
   const [allStudnets, setAllStudnets] = useState([]);
   const [selectClass, setSelectClass] = useState("");
   const [selectSection, setSelectSection] = useState("");
+  const [allClass, setAllClass] = useState([]);
 
-  console.log("allStudnets", allStudnets);
+
+  useEffect(() => {
+    getClass();
+  }, []);
 
   useEffect(() => {
     getStudents();
-  }, []);
+  }
+  , [selectClass, selectSection]);  
 
 
   const getStudents = async () => {
     try {
-      const req = { classname: "67b770b19cc886943cbe7d3b", section: "A" }
+      const req = { classname: selectClass, section: selectSection }
       await getAllStudent(req).then((res) => {
         if (res.status) {
           setAllStudnets(res.data);
@@ -38,6 +43,21 @@ const Dashboard = () => {
     }
   }
 
+     const getClass = async () => {
+          const res = await getAllClass()
+              .then((res) => {
+                  if (res.status) {
+                      setAllClass(res.data);
+                  }
+                  else {
+                      setAllClass([]);
+                  }
+              })
+              .catch((err) => {
+                  console.log(err);   
+              }
+          );
+      }
 
 
 
@@ -125,13 +145,12 @@ const Dashboard = () => {
             <div className="col-lg-3">
               <label>select class</label>
               <select className="form-control" onChange={(e) => setSelectClass(e.target.value)} value={selectClass}>
-                <option>Class</option>
-                <option>Class</option>
-                <option>Class</option>
-                <option>Class</option>
-                <option>Class</option>
-                <option>Class</option>
-
+                <option value={""}>Select Class</option>
+                {allClass.map((item, index) => {
+                  return (
+                    <option key={index} value={item._id}>{item.className}</option>
+                  );
+                })}
               </select>
             </div>
             <div className="col-lg-3">
