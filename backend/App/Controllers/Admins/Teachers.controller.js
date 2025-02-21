@@ -74,7 +74,7 @@ class Teachers {
     }
 
     async updateTeacher(req, res) {
-        const { id, FullName, Email, PhoneNo, Password, Subject, Role } = req.body
+        const { id, FullName, Email, PhoneNo, Subject, Role } = req.body
         if (!id) {
             return res.json({ status: false, msg: "ID is required", data: [] })
         }
@@ -94,6 +94,16 @@ class Teachers {
         const teacher = await Teacher_model.findOne({ _id: id })
         if (!teacher) {
             return res.json({ status: false, msg: "Teacher not found", data: [] })
+        }
+        teacher.FullName = FullName
+        teacher.Email = Email
+        teacher.PhoneNo = PhoneNo
+        teacher.Subject = Subject
+        teacher.Role = Role
+        if (Password) {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(Password, salt);
+            teacher.Password = hashedPassword
         }
 
 
