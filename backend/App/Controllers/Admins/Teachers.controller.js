@@ -101,18 +101,45 @@ class Teachers {
 
     async getAllteacher(req, res) {
         try {
-            const {search} = req.body || "";
-            console.log("search", search)
-            const teachers = await Teacher_model.find({
-                $or: [
-                    { FullName: { $regex: search, $options: "i" } },
-                    { Email: { $regex: search, $options: "i" } },
-                ]
-            });
+            const { search } = req.body || "";
 
-            console.log("teachers", teachers)
 
-            return res.json({ status: true, msg: "Filtered Teachers", data: teachers });
+            const TeacherDetails = await Teacher_model.aggregate([
+                {
+                    $match: {
+                        $or: [
+                            { FullName: { $regex: search, $options: "i" } },
+                            { Email: { $regex: search, $options: "i" } }
+                        ]
+                    }
+                },
+                {
+                    $lookup: {
+                        from: "subjects",
+                        localField: "Subject",
+                        foreignField: "_id",
+                        as: "SubjectDetails"
+                    }
+                },
+                {
+                    $project: {
+                        FullName: 1,
+                        Email: 1,
+                        PhoneNo: 1,
+                        Address: 1,
+                        Gender: 1,
+                        Qualification: 1,
+                        Experience: 1,
+                        JoiningDate: 1,
+                        "SubjectDetails.Subject_Name": 1,
+                        _id: 0
+                    }
+                }
+            ]);
+
+
+
+            return res.json({ status: true, msg: "Filtered Teachers", data: TeacherDetails });
         } catch (error) {
             console.log("error", error)
             return res.json({ status: false, msg: "Server Error", data: [] });
