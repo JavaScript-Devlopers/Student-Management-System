@@ -22,23 +22,18 @@ const AllTeachers = () => {
 
     const getTeacher = async () => {
         try {
-            const req = { searchInput: "" }
-            await getAllTeacherdata(req).then((res) => {
-                if (res.status) {
-                    setGetallteacher(res.data);
-                }
-                else {
-                    setAllStudnets([]);
-                }
-            })
-                .catch((err) => {
-                    console.log(err);
-                });
+            const req = { search: searchInput };
+            const res = await getAllTeacherdata(req);
+            if (res.status) {
+                setGetallteacher(res.data);
+            } else {
+                setGetallteacher([]);
+            }
+        } catch (error) {
+            console.log("Error fetching teachers:", error);
         }
-        catch (error) {
-            console.log(error);
-        }
-    }
+    };
+
 
 
     const resethandle = () => {
