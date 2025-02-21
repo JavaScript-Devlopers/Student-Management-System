@@ -204,7 +204,7 @@ const Dashboard = () => {
         {
             name: "Student_PhoneNo",
             label: "Student Phone number",
-            type: "text",
+            type: "number",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -329,7 +329,7 @@ const Dashboard = () => {
         {
             name: "PhoneNo",
             label: "Father Phone number",
-            type: "text",
+            type: "number",
             label_size: 12,
             col_size: 6,
             disable: false,
@@ -337,7 +337,7 @@ const Dashboard = () => {
         {
             name: "Alternate_PhoneNo",
             label: "Alternate Phone number",
-            type: "text",
+            type: "number",
             label_size: 12,
             col_size: 6,
             disable: false,

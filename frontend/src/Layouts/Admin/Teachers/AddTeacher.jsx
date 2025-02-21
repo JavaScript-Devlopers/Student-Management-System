@@ -128,7 +128,7 @@ const AddTeacher = () => {
         {
             name: "PhoneNo",
             label: "Phone Number",
-            type: "text",
+            type: "number",
             label_size: 12,
             col_size: 6,
             disable: false,
