@@ -9,7 +9,7 @@ class Teachers {
 
     async addTeachers(req, res) {
         try {
-            
+
             const { FullName, Email, PhoneNo, Password, Gender, Address, Subject, Role } = req.body
             if (!FullName) {
                 return res.json({ status: false, msg: "Full Name is required!", data: [] });
@@ -18,16 +18,15 @@ class Teachers {
                 return res.json({ status: false, msg: "User Name is required!", data: [] });
             }
             if (!PhoneNo) {
-                return res.json({ status: false, msg: "Email is required!", data: [] });
+                return res.json({ status: false, msg: "PhoneNo is required!", data: [] });
             }
             if (!Subject) {
-                return res.json({ status: false, msg: "Phone Number is required!", data: [] });
+                return res.json({ status: false, msg: "Subject  is required!", data: [] });
             }
             if (!Password) {
                 return res.json({ status: false, msg: "Password is required!", data: [] });
             }
             if (Gender === undefined || Gender === "" || Gender === null) {
-                console.log("gent" , Gender)
                 return res.json({ status: false, msg: "Gender is required!", data: [] });
             }
             if (!Address) {

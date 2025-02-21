@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import AddFrom from "../../../Components/ReusableFrom";
 import Content from "../../../ExtraComponent/Content/Contents";
-import { AddStudent , getAllSubject , getAllClass } from "../../../Services/admin/Student";
+import { AddStudent, getAllSubject, getAllClass } from "../../../Services/admin/Student";
 import Swal from "sweetalert2";
 
 const Dashboard = () => {
@@ -342,9 +342,9 @@ const Dashboard = () => {
                 }
             })
             .catch((err) => {
-                console.log(err);   
+                console.log(err);
             }
-        );
+            );
     }
 
 

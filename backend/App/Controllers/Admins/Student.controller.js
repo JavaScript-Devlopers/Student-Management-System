@@ -7,6 +7,8 @@ const Student_model = db.Student_model;
 const User = db.User
 const Parent_model = db.Parent_model
 
+
+
 class Auth {
 
     async addStudent(req, res) {
@@ -170,27 +172,19 @@ class Auth {
     }
 
 
+
+
     async getAllStudent(req, res) {
         try {
             const { classname, section } = req.body;
 
-            console.log("classname", classname);
-            console.log("section", section);
+            // Define match condition based on input
+            let matchCondition = {};
+            if (classname) matchCondition.Class_id = new ObjectId(classname);
+            if (section) matchCondition.section = section;
 
-            if (!classname) {
-                return res.send({ status: false, msg: "Class Name is required", data: [] });
-            }
-            if (!section) {
-                return res.send({ status: false, msg: "Section Name is required", data: [] });
-            }
-
-            const studentDetails = await Student_model.aggregate([
-                {
-                    $match: { 
-                        Class_id: new ObjectId(classname), // Convert classname to ObjectId
-                        section: section 
-                    }
-                },
+            let studentDetails = await Student_model.aggregate([
+                { $match: matchCondition },
                 {
                     $lookup: {
                         from: "parents",
@@ -199,15 +193,8 @@ class Auth {
                         as: "Parent"
                     }
                 },
-                {
-                    $unwind: {
-                        path: "$Parent",
-                        preserveNullAndEmptyArrays: true
-                    }
-                },
-                {
-                    $sort: { createdAt: -1 }
-                }
+                { $unwind: { path: "$Parent", preserveNullAndEmptyArrays: true } },
+                { $sort: { createdAt: -1 } }
             ]);
 
             res.send({ status: true, msg: "Student Details", data: studentDetails });
@@ -216,10 +203,9 @@ class Auth {
             console.log("Error getting student details:", err);
             res.send({ status: false, msg: "Internal Server Error", data: [] });
         }
-
-
-
     }
+
+
 
 
     async deleteStudent(req, res) {

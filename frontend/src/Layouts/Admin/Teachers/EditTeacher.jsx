@@ -8,7 +8,7 @@ import { UpdateStudent, getAllSubject, getAllClass } from "../../../Services/adm
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 
-const Dashboard = () => {
+const EditTeacher = () => {
     const location = useLocation();
     const [allStudents, setAllStudents] = useState([]);
     const [allClass, setAllClass] = useState([]);
@@ -404,4 +404,4 @@ const Dashboard = () => {
     );
 }
 
-export default Dashboard;
+export default EditTeacher;
