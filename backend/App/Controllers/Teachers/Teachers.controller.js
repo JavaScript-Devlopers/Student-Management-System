@@ -62,8 +62,9 @@ class Teachers {
             return res.json({ status: false, msg: "Server Error ", data: [] })
         }
     }
-
     
+
+
 
 }
 
