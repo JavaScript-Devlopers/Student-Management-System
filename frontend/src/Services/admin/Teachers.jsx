@@ -17,19 +17,19 @@ export async function AddTeachersdata(data, token) {
 }
 
 
-// export async function getAllStudent(data, token) {
-//     try {
-//         const res = await axios.post(`${Config.base_url}getAllStudent`, data, {
-//             data: {},
-//         })
-//         return await res?.data;
-//     }
-//     catch (err) {
-//         return await err;
+export async function getAllTeacherdata(data, token) {
+    try {
+        const res = await axios.post(`${Config.base_url}getAllteacher`, data, {
+            data: {},
+        })
+        return await res?.data;
+    }
+    catch (err) {
+        return await err;
 
-//     }
+    }
 
-// }
+}
 
 
 

@@ -2,69 +2,48 @@ import React, { useState, useEffect } from "react";
 import Datatable from '../../../Components/ReusableTable'
 import { useNavigate } from "react-router-dom";
 import Content from "../../../ExtraComponent/Content/Contents";
-// import { AddTeachersdata } from "../../../Services/admin/Teachers";
+import { getAllTeacherdata } from "../../../Services/admin/Teachers";
 import { SquarePen, Trash2, Eye, View, RefreshCcw } from 'lucide-react';
 
 const AllTeachers = () => {
 
 
     const navigate = useNavigate();
-    const [allStudnets, setAllStudnets] = useState([]);
-    const [selectClass, setSelectClass] = useState("");
-    const [selectSection, setSelectSection] = useState("");
-    const [allClass, setAllClass] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
+    const [getallteacher, setGetallteacher] = useState([]);
 
 
-    // useEffect(() => {
-    //     getClass();
-    // }, []);
 
-    // useEffect(() => {
-    //     getStudents();
-    // }
-    //     , [selectClass, selectSection]);
+    useEffect(() => {
+        getTeacher();
+    }, [searchInput]);
 
 
-    // const getStudents = async () => {
-    //     try {
-    //         const req = { classname: selectClass, section: selectSection }
-    //         await getAllStudent(req).then((res) => {
-    //             if (res.status) {
-    //                 setAllStudnets(res.data);
-    //             }
-    //             else {
-    //                 setAllStudnets([]);
-    //             }
-    //         })
-    //             .catch((err) => {
-    //                 console.log(err);
-    //             });
-    //     }
-    //     catch (error) {
-    //         console.log(error);
-    //     }
-    // }
 
-    // const getClass = async () => {
-    //     const res = await getAllClass()
-    //         .then((res) => {
-    //             if (res.status) {
-    //                 setAllClass(res.data);
-    //             }
-    //             else {
-    //                 setAllClass([]);
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         }
-    //         );
-    // }
+    const getTeacher = async () => {
+        try {
+            const req = { searchInput: "" }
+            await getAllTeacherdata(req).then((res) => {
+                if (res.status) {
+                    setGetallteacher(res.data);
+                }
+                else {
+                    setAllStudnets([]);
+                }
+            })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 
 
     const resethandle = () => {
-        setSelectClass("")
-        setSelectSection("")
+        setSearchInput("")
+        getTeacher()
     };
 
 
@@ -149,31 +128,18 @@ const AllTeachers = () => {
                             <label>Search</label>
                             <input type="text" className="form-control" placeholder="search hear..." />
                         </div>
-                        {/* <div className="col-lg-3">
-                            <label>select class</label>
-                            <select className="form-control" onChange={(e) => setSelectClass(e.target.value)} value={selectClass}>
-                                <option value={""}>Select Class</option>
-                                {allClass.map((item, index) => {
-
-                                    return (
-                                        <option key={index} value={item._id}>{item.className}</option>
-
-                                    );
-                                })}
-                            </select>
-                        </div> */}
-                        {/* <div className="col-lg-3">
-                            <label>select section</label>
-                            <select className="form-control" onChange={(e) => setSelectSection(e.target.value)} value={selectSection}>
-                                <option value={""}>Select</option>
-                                <option value={"A"}>A</option>
-                                <option value={"B"}>B</option>
-                                <option value={"C"}>C</option>
-                                <option value={"D"}>D</option>
-                                <option value={"E"}>E</option>
-                            </select>
-
-                        </div> */}
+                        <div className="position-relative">
+                            <input
+                                type="text"
+                                className="form-control ps-5 radius-10"
+                                placeholder="Search Client"
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                value={searchInput}
+                            />
+                            <span className="position-absolute top-50 product-show translate-middle-y">
+                                <i className="bx bx-search" />
+                            </span>
+                        </div>
                         <div className="col-md-1">
                             <div className="refresh-icon mt-4">
                                 <RefreshCcw onClick={resethandle} />
@@ -182,7 +148,7 @@ const AllTeachers = () => {
                     </div>
                     <Datatable
                         columns={columns}
-                        data={allStudnets}
+                        data={getallteacher}
                         filter={false}
                     />
                 </div>
