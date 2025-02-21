@@ -63,20 +63,61 @@ class Teachers {
         }
     }
 
+    async updateTeacher(req, res) {
+        const { id, FullName, Email, PhoneNo, Password, Subject, Role } = req.body
+        if (!id) {
+            return res.json({ status: false, msg: "ID is required", data: [] })
+        }
+        if (!FullName) {
+            return res.json({ status: false, msg: "Full Name is required", data: [] })
+        }
+        if (!Email) {
+            return res.json({ status: false, msg: "Email is required", data: [] })
+        }
+        if (!PhoneNo) {
+            return res.json({ status: false, msg: "Phone Number is required", data: [] })
+        }
+        if (!Subject) {
+            return res.json({ status: false, msg: "Subject is required", data: [] })
+        }
+    
+        if (!Password) {
+            return res.json({ status: false, msg: "Password is required", data: [] })
+        }
+    }
+
     async getAllteacher(req, res) {
         try {
             const search = req.query.search || "";
             const teachers = await Teacher_model.find({
-                $or : [
-                    {FullName: { $regex: search, $options: "i" }},
-                    {Email: { $regex: search, $options: "i" }},
-                    {PhoneNo: { $regex: search, $options: "i" }},
+                $or: [
+                    { FullName: { $regex: search, $options: "i" } },
+                    { Email: { $regex: search, $options: "i" } },
+                    { PhoneNo: { $regex: search, $options: "i" } },
                 ]
             });
 
             return res.json({ status: true, msg: "Filtered Teachers", data: teachers });
         } catch (error) {
             return res.json({ status: false, msg: "Server Error", data: [] });
+        }
+    }
+
+
+    async deleteTeacher(req, res) {
+        try {
+            const { id } = req.body
+            if (!id) {
+                return res.json({ status: false, msg: "ID is required", data: [] })
+            }
+            const teacher = await Teacher_model.findByIdAndDelete(id)
+            if (!teacher) {
+                return res.json({ status: false, msg: "Teacher not found", data: [] })
+            }
+            return res.json({ status: true, msg: "Deleted Successfully", data: teacher })
+        }
+        catch (error) {
+            return res.json({ status: false, msg: "Server Error", data: [] })
         }
     }
 
