@@ -121,6 +121,7 @@ class Teachers {
                         as: "SubjectDetails"
                     }
                 },
+                
                 {
                     $project: {
                         FullName: 1,
@@ -128,14 +129,12 @@ class Teachers {
                         PhoneNo: 1,
                         Address: 1,
                         Gender: 1,
-                        Qualification: 1,
-                        Experience: 1,
-                        JoiningDate: 1,
                         "SubjectDetails.Subject_Name": 1,
                         _id: 0
                     }
                 }
             ]);
+            
 
 
 
