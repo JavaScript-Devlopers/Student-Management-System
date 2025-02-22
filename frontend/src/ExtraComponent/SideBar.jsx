@@ -2,35 +2,53 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
-  const Role = JSON.parse(localStorage.getItem("user"))?.role;
+  const Role = localStorage.getItem("role");
 
   const AdminSideBaarArr = [
     {
       name: "Dashboard",
       icon: "bi bi-grid",
       link: "/admin/dashboard",
+      child: []
     },
     {
       name: "All Student",
-      icon: "bi bi-journal-text",
+      icon: "bi bi-people", 
       link: "/admin/all-students",
+      child: []
     },
     {
       name: "All Teacher",
-      icon: "bi bi-journal-text",
+      icon: "bi bi-person-badge", 
       link: "/admin/all-teachers",
+      child: []
     },
     {
-      name: "All Staff",
-      icon: "bi bi-journal-text",
-      link: "/admin/all-staff",
+      name: "All Employee",
+      icon: "bi bi-briefcase", 
+      link: "/admin/all-employee",
+      child: []
     },
     {
-      name: "Quize",
-      icon: "bi bi-journal-text",
-      link: "/admin/all-quizes",
+      name: "Parent",
+      icon: "bi bi-person-heart", 
+      link: "/admin/parent",
+      child: []
     },
+    {
+      name: "Timetable",
+      icon: "bi bi-calendar-week", 
+      link: "/admin/time-table",
+      child: []
+    },
+    {
+      name: "Settings",
+      icon: "bi bi-gear", 
+      link: "/admin/Settings",
+      child: []
+    }
   ];
+  
 
   const UserSideBaarArr = [
     {

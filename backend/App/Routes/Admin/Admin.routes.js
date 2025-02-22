@@ -1,11 +1,12 @@
-"use strict"
+// "use strict"
 
-const router = require("express").Router()
+// const router = require("express").Router()
 
-const { AddSubject } = require("../../Controllers/Admins/Admin.controller")
+// const { AddSubject, AddStudent } = require("../../Controllers/Admins/Admin.controller")
 
-router.post('/AddSubject', AddSubject)
+// router.post('/AddSubject', AddSubject)
+// router.post('/AddStudent', AddStudent)
 
 
 
-module.exports = router;
+// module.exports = router;

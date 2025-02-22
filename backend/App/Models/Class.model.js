@@ -17,7 +17,8 @@ const classSchema = new Schema({
         default: "A",
     },
     classTeacher: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
+        
         required: true,
         ref: "Teacher"
     },
@@ -31,11 +32,7 @@ const classSchema = new Schema({
         ref: "Subject",
         required: true
     }],
-    student: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Student",
-        required: true,
-    }]
+  
 },
     {
         timestamps: true

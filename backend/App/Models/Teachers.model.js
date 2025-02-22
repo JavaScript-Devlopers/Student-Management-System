@@ -19,11 +19,9 @@ const Teachersdata = Schema({
         default: null
     },
     PhoneNo: {
-        type: String,
+        type: Number,
         required: true,
         trim: true,
-        min: 10,
-        max: 10,
         unique: true,
         default: null
     },
@@ -32,6 +30,16 @@ const Teachersdata = Schema({
         required: true,
         trim: true,
         default: null
+    },
+    Gender: {
+        type: Number,
+        enum: [0, 1, 2] // 0 = male ,1 = female , 2 = other
+
+    },
+    Address: {
+        type: String,
+        default: null
+
     },
     Subject: {
         type: [String],

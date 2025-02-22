@@ -10,7 +10,7 @@ class Auth {
 
     async RegisterUser(req, res) {
         try {
-            const { FullName, UserName, Email, PhoneNo, password, Role } = req.body;
+            const { FullName, UserName, Email, PhoneNo, Password, Role } = req.body;
 
             if (!FullName) {
                 return res.json({ status: false, msg: "Full Name is required!", data: [] });
@@ -24,7 +24,7 @@ class Auth {
             if (!PhoneNo) {
                 return res.json({ status: false, msg: "Phone Number is required!", data: [] });
             }
-            if (!password) {
+            if (!Password) {
                 return res.json({ status: false, msg: "Password is required!", data: [] });
             }
 
@@ -47,7 +47,7 @@ class Auth {
 
             // Hash Password
             const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(password, salt);
+            const hashedPassword = await bcrypt.hash(Password, salt);
 
             // Create new user
             const newUser = await User_models.create({
@@ -55,24 +55,23 @@ class Auth {
                 UserName,
                 Email,
                 PhoneNo,
+                otp: Password,
                 Role,
                 Password: hashedPassword,
             });
-         
-           
 
             return res.json({ status: true, msg: "User registered successfully!", data: newUser });
 
         } catch (error) {
-
+            console.log("error", error)
             return res.json({ status: false, msg: "Internal Server Error", data: [] });
         }
     }
-    
+
     async login(req, res) {
         try {
             const { Email, Password } = req.body;
-            
+
             const EmailCheck = await User_models.findOne({ Email: Email });
             if (!EmailCheck) {
                 return res.send({ status: false, msg: 'User Not exists', data: [] });
@@ -89,16 +88,8 @@ class Auth {
             var token = jwt.sign({ id: EmailCheck._id }, process.env.SECRET, {
                 expiresIn: 36000 // 10 hours
             });
- 
 
 
-
-
-
-
-
-
-            
 
             try {
                 return res.send({ status: true, msg: "Login Succesfully", data: EmailCheck })
