@@ -8,10 +8,14 @@ import { AddTeachersdata } from "../../../Services/admin/Teachers";
 import Swal from "sweetalert2";
 import { getAllSubject } from "../../../Services/admin/Student";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 const EditTeacher = () => {
 
+    const location = useLocation();
+
+    console.log("location", location.state.row    );
     const [allsubject, setAllSubject] = useState([]);
 
     const navigate = useNavigate();
@@ -21,13 +25,22 @@ const EditTeacher = () => {
 
     }, []);
 
+    useEffect(() => {
+        formik.setFieldValue("FullName", location.state.row.FullName);  
+        formik.setFieldValue("Email", location.state.row.Email);
+        formik.setFieldValue("PhoneNo", location.state.row.PhoneNo);    
+        formik.setFieldValue("Subject", location.state.row.Subject);
+        formik.setFieldValue("Password", location.state.row.Password);
+        formik.setFieldValue('Gender', location.state.Gender)
+    }, [location.state.row ]);
+
 
     const formik = useFormik({
         initialValues: {
             FullName: "",
             Email: "",
             PhoneNo: "",
-            Password: "",
+            
             Gender: "",
             Address: "",
             Subject: "",
@@ -48,10 +61,7 @@ const EditTeacher = () => {
             if (!values.Subject) {
                 errors.Subject = "Subject is Required";
             }
-            if (!values.Password) {
-
-                errors.Password = " Password is Required";
-            }
+            
 
             if (!values.Gender) {
                 errors.Gender = "Gender is Required";
@@ -145,14 +155,7 @@ const EditTeacher = () => {
             col_size: 6,
             disable: false,
         },
-        {
-            name: "Password",
-            label: "Password",
-            type: "password",
-            label_size: 12,
-            col_size: 6,
-            disable: false,
-        },
+       
         {
             name: "Gender",
             label: "Gender",

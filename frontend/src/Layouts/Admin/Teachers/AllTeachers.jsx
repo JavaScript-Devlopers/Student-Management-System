@@ -80,13 +80,16 @@ const AllTeachers = () => {
             width: "15%",
         },
         {
-            name: "View",
-            selector: (row) => <div title="View">
-                <Eye />
-            </div>,
+            name: "Subjects",
+            selector: (row) => (
+                <div title={row.SubjectDetails?.join(", ") || ""}>
+                    {row.SubjectDetails?.join(", ") || ""}
+                </div>
+            ),
             sortable: true,
             width: '10%',
         },
+        
         {
             name: "Action",
             selector: (row) => <div title="Action">
