@@ -41,11 +41,12 @@ const Teachersdata = Schema({
         default: null
 
     },
-    Subject: {
-        type: [String],
+    Subject: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subjects',
         trim: true,
         default: []
-    },
+    }],
     Role: {
         type: String,
         required: true

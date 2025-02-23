@@ -4,7 +4,7 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 
 const Datatable = ({ columns, data, filter}) => {
-  const noDataImage = '/assets/img/no-data.png';
+  const noDataImage = '/assets/img/no_record.jpg';
 
   const handleTableRef = (node) => {
     if (node) {
@@ -18,7 +18,7 @@ const Datatable = ({ columns, data, filter}) => {
   return (
     <div className="datatable-container" ref={handleTableRef}>
       {data.length === 0 ? (
-        <div className='text-center'>
+        <div className='text-center mt-2'>
           <img 
             src={noDataImage} 
             alt="No records available" 

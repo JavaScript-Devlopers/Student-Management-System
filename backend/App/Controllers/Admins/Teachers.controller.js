@@ -74,44 +74,46 @@ class Teachers {
     }
 
     async updateTeacher(req, res) {
-        const { id, FullName, Email, PhoneNo, Subject, Role } = req.body
-        if (!id) {
-            return res.json({ status: false, msg: "ID is required", data: [] })
-        }
-        if (!FullName) {
-            return res.json({ status: false, msg: "Full Name is required", data: [] })
-        }
-        if (!Email) {
-            return res.json({ status: false, msg: "Email is required", data: [] })
-        }
-        if (!PhoneNo) {
-            return res.json({ status: false, msg: "Phone Number is required", data: [] })
-        }
-        if (!Subject) {
-            return res.json({ status: false, msg: "Subject is required", data: [] })
-        }
+        try {
+            const { id, FullName, Email, PhoneNo, Subject, Role } = req.body
+            if (!id) {
+                return res.json({ status: false, msg: "ID is required", data: [] })
+            }
+            if (!FullName) {
+                return res.json({ status: false, msg: "Full Name is required", data: [] })
+            }
+            if (!Email) {
+                return res.json({ status: false, msg: "Email is required", data: [] })
+            }
+            if (!PhoneNo) {
+                return res.json({ status: false, msg: "Phone Number is required", data: [] })
+            }
+            if (!Subject) {
+                return res.json({ status: false, msg: "Subject is required", data: [] })
+            }
 
-        const teacher = await Teacher_model.findOne({ _id: id })
-        if (!teacher) {
-            return res.json({ status: false, msg: "Teacher not found", data: [] })
-        }
-        teacher.FullName = FullName
-        teacher.Email = Email
-        teacher.PhoneNo = PhoneNo
-        teacher.Subject = Subject
-        teacher.Role = Role
-        if (Password) {
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(Password, salt);
-            teacher.Password = hashedPassword
-        }
+            const teacher = await Teacher_model.findOne({ _id: id })
+            if (!teacher) {
+                return res.json({ status: false, msg: "Teacher not found", data: [] })
+            }
 
+            const updateTeacher = await Teacher_model.findByIdAndUpdate({ _id: id }, {
+                FullName,
+                Email,
+                PhoneNo,
+                Subject,
+                Gender,
+                Address,
+            }, { new: true })
+
+            return res.json({ status: true, msg: "Updated Successfully", data: updateTeacher })
+        }
+        catch (error) {
+            console.log("error", error)
+            return res.json({ status: false, msg: "Server Error", data: [] })
+        }
 
     }
-
-
-
-
 
     async getAllteacher(req, res) {
         try {
@@ -129,21 +131,12 @@ class Teachers {
                 {
                     $lookup: {
                         from: "subjects",
-                        let: { subjectIds: "$Subject" },
-                        pipeline: [
-                            {
-                                $match: {
-                                    $expr: { $in: ["$_id", { $map: { input: "$$subjectIds", as: "id", in: { $toObjectId: "$$id" } } }] }
-                                }
-                            },
-                            {
-                                $project: { Subject_Name: 1, _id: 0 }
-                            }
-                        ],
+                        localField: "Subject",
+                        foreignField: "_id",
                         as: "SubjectDetails"
                     }
                 },
-                
+
                 {
                     $project: {
                         FullName: 1,
@@ -154,11 +147,17 @@ class Teachers {
                         Qualification: 1,
                         Experience: 1,
                         JoiningDate: 1,
-                        SubjectDetails: "$SubjectDetails.Subject_Name" // Subject_Name की list दिखाने के लिए
+                        SubjectDetails: "$SubjectDetails.Subject_Name"
                     }
+                },
+                { $sort: { createdAt: -1 } },
+                {
+                    $unwind: "$SubjectDetails",
+                    preserveNullAndEmptyArrays: true
+
                 }
             ]);
-            
+
 
             return res.json({ status: true, msg: "Filtered Teachers", data: TeacherDetails });
         } catch (error) {
@@ -166,8 +165,6 @@ class Teachers {
             return res.json({ status: false, msg: "Server Error", data: [] });
         }
     }
-
-
 
     async deleteTeacher(req, res) {
         try {
