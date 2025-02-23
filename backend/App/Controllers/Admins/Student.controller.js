@@ -177,8 +177,7 @@ class Auth {
     async getAllStudent(req, res) {
         try {
             const { classname, section } = req.body;
-
-            // Define match condition based on input
+ 
             let matchCondition = {};
             if (classname) matchCondition.Class_id = new ObjectId(classname);
             if (section) matchCondition.section = section;
